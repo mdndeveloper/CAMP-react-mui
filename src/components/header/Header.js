@@ -9,6 +9,9 @@ const Header = () => {
       sx={{
         background: '#fff',
         boxShadow: '0px 0px 10px -4px #000',
+        height: '90px',
+        boxSizing: 'border-box',
+        overflow: 'hidden',
       }}
     >
       <div className='container'>
