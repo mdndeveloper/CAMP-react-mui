@@ -12,7 +12,9 @@ const Layout = ({ children }) => {
           <SideBar />
         </Grid>
         <Grid xs={9} xl={10}>
-          <Box sx={{ boxSizing: 'border-box', p: '10px' }}>{children}</Box>
+          <Box sx={{ boxSizing: 'border-box', pt: '30px', pl: '30px' }}>
+            {children}
+          </Box>
         </Grid>
       </Grid>
     </div>

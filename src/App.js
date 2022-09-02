@@ -1,13 +1,19 @@
 import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Layout from './components/layout/Layout';
 const App = () => {
   return (
-    <div>
+    <BrowserRouter>
       <Layout>
-        <h2>App</h2>
+        <Routes>
+          <Route path='/' element={<h2>Home</h2>} />
+          <Route path='/messages' element={<h2>Messages</h2>} />
+          <Route path='/schedule' element={<h2>Schedule</h2>} />
+          <Route path='/configure' element={<h2>Configure</h2>} />
+        </Routes>
       </Layout>
-    </div>
+    </BrowserRouter>
   );
 };
 
