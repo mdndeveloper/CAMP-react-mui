@@ -62,7 +62,6 @@ export default function QuickSend() {
         <Select
           labelId='demo-multiple-chip-label'
           id='demo-multiple-chip'
-          multiple
           value={personName}
           onChange={handleChange}
           input={<OutlinedInput id='select-multiple-chip' label='Chip' />}

@@ -23,8 +23,11 @@ const RightItems = () => {
             <CampArea />
           </Box>
           <div>
-            <Button sx={{ width: '100px' }} variant='contained'>
-              Check IN
+            <Button
+              sx={{ width: '100px', background: '#9b55d6' }}
+              variant='contained'
+            >
+              Interview
             </Button>
           </div>
         </Stack>
@@ -38,13 +41,15 @@ const RightItems = () => {
               variant='outlined'
               placeholder='Input here'
               multiline
-              rows={10}
+              rows={5}
               maxRows={10}
               fullWidth
             />
           </Box>
           <div>
-            <Button variant='contained'>Check Out</Button>
+            <Button variant='contained' sx={{ background: '#fc74da' }}>
+              Send
+            </Button>
           </div>
         </Stack>
       </Stack>

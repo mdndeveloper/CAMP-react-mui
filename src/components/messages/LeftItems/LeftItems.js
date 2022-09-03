@@ -20,7 +20,9 @@ const LeftItems = () => {
             />
           </Box>
           <div>
-            <Button variant='contained'>Check IN</Button>
+            <Button variant='contained' sx={{ background: '#82da73' }}>
+              Check IN
+            </Button>
           </div>
         </Stack>
         <Stack direction='row' gap={2} alignItems={'center'}>
@@ -36,7 +38,9 @@ const LeftItems = () => {
             />
           </Box>
           <div>
-            <Button variant='contained'>Check Out</Button>
+            <Button variant='contained' sx={{ background: '#f46969' }}>
+              Check Out
+            </Button>
           </div>
         </Stack>
 
@@ -45,7 +49,9 @@ const LeftItems = () => {
             <QuickSend />
           </Box>
           <div>
-            <Button variant='contained'>Check Out</Button>
+            <Button variant='contained' sx={{ background: '#6087d4' }}>
+              Send
+            </Button>
           </div>
         </Stack>
       </Stack>
