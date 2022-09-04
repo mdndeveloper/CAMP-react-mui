@@ -17,7 +17,7 @@ const Library = () => {
           py: '15px',
           pl: '10px',
           width: '40%',
-          borderTop: '3px solid #6087d4',
+          borderTop: '3px solid #3dc3c2',
         }}
       >
         <Typography
@@ -25,7 +25,7 @@ const Library = () => {
           sx={{ textTransform: 'uppercase' }}
           component={'h2'}
         >
-          Create
+          Library
         </Typography>
       </Box>
       <Divider />
