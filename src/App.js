@@ -4,6 +4,7 @@ import './App.css';
 import Layout from './components/layout/Layout';
 import MessagesSounds from './pages/confugure/MessagesSounds';
 import SliderShow from './pages/confugure/SliderShow';
+import Streams from './pages/confugure/Streams';
 import Messages from './pages/Messages';
 import Schedule from './pages/Schedule';
 
@@ -21,6 +22,7 @@ const App = () => {
             element={<MessagesSounds />}
           />
           <Route path='/configure/slide-show' element={<SliderShow />} />
+          <Route path='/configure/streams' element={<Streams />} />
         </Routes>
       </Layout>
     </BrowserRouter>
