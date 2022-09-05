@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Layout from './components/layout/Layout';
+import Marketplace from './pages/confugure/Marketplace';
 import MessagesSounds from './pages/confugure/MessagesSounds';
 import SliderShow from './pages/confugure/SliderShow';
 import Streams from './pages/confugure/Streams';
@@ -23,6 +24,7 @@ const App = () => {
           />
           <Route path='/configure/slide-show' element={<SliderShow />} />
           <Route path='/configure/streams' element={<Streams />} />
+          <Route path='/configure/marketplace' element={<Marketplace />} />
         </Routes>
       </Layout>
     </BrowserRouter>
