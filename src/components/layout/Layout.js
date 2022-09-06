@@ -1,9 +1,18 @@
 import { Box, Grid } from '@mui/material';
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import Header from '../header/Header';
 import SideBar from '../sidebar/SideBar';
 
+const arrays = ['/cameras', '/camera'];
+
 const Layout = ({ children }) => {
+  const { pathname } = useLocation();
+
+  if (arrays.includes(pathname)) {
+    return children;
+  }
+
   return (
     <div>
       <Header />

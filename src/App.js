@@ -6,6 +6,7 @@ import Layout from './components/layout/Layout';
 import DefaultImages from './pages/admin/DefaultImages';
 import DefaultMessages from './pages/admin/DefaultMessages';
 import Locations from './pages/admin/Locations';
+import AllCameraList from './pages/AllCameraList';
 import Displays from './pages/confugure/Dispalays';
 import Marketplace from './pages/confugure/Marketplace';
 import MessagesSounds from './pages/confugure/MessagesSounds';
@@ -13,6 +14,7 @@ import SliderShow from './pages/confugure/SliderShow';
 import Streams from './pages/confugure/Streams';
 import Messages from './pages/Messages';
 import Schedule from './pages/Schedule';
+import SingleCamera from './pages/SingleCamera';
 
 const App = () => {
   return (
@@ -36,6 +38,8 @@ const App = () => {
           <Route path='/admin/locations' element={<Locations />} />
           <Route path='/admin/default-messages' element={<DefaultMessages />} />
           <Route path='/admin/default-images' element={<DefaultImages />} />
+          <Route path='/cameras' element={<AllCameraList />} />
+          <Route path='/camera' element={<SingleCamera />} />
         </Routes>
       </Layout>
     </BrowserRouter>
