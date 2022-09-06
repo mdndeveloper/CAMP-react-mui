@@ -3,15 +3,17 @@ import React from 'react';
 import useInnerSize from '../../hooks/useInnerSize';
 import Navigation from './Navigation';
 import UserMenu from './UserMenu';
-const SideBar = () => {
+const SideBar = ({ elementHeight }) => {
   const { height } = useInnerSize();
   return (
     <Box
       sx={{
         pt: '20px',
         background: '#557993',
-        height: height - 90,
-        px: '40px',
+        height: elementHeight > height - 90 ? elementHeight : height - 90,
+        px: {
+          md: '40px',
+        },
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',

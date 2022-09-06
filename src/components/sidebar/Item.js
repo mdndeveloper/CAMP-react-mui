@@ -13,7 +13,14 @@ const Item = ({ text, icon, url = '', ...rest }) => {
       <ListItemIcon sx={{ mr: '10px', fontSize: '27px', color: '#fff' }}>
         {icon}
       </ListItemIcon>
-      <ListItemText>
+      <ListItemText
+        sx={{
+          display: {
+            xs: 'none',
+            md: 'block',
+          },
+        }}
+      >
         <Typography sx={{ fontSize: '22px', color: '#fff' }}>{text}</Typography>
       </ListItemText>
     </MenuItem>
