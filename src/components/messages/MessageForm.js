@@ -9,10 +9,10 @@ const MessageForm = () => {
       sx={{ py: '50px', px: '30px', width: '100%', boxSizing: 'border-box' }}
     >
       <Grid container gap={4}>
-        <Grid xs={5}>
+        <Grid xs={12} md={5}>
           <LeftItems />
         </Grid>
-        <Grid xs={6}>
+        <Grid xs={12} md={6}>
           <RightItems />
         </Grid>
       </Grid>

@@ -7,8 +7,8 @@ const RightItems = () => {
   return (
     <div>
       <Stack gap={4}>
-        <Stack direction='row' gap={2} alignItems={'start'}>
-          <div>
+        <Stack direction='row' gap={2} alignItems={'start'} flexWrap='wrap'>
+          <Box sx={{ flex: 1, minWidth: { xs: '130px' } }}>
             <TextField
               InputLabelProps={{
                 shrink: true,
@@ -17,9 +17,10 @@ const RightItems = () => {
               variant='outlined'
               placeholder='Input here'
               sx={{ width: '150px' }}
+              fullWidth
             />
-          </div>
-          <Box sx={{ flex: 1 }}>
+          </Box>
+          <Box sx={{ flex: 1, minWidth: { xs: '130px' } }}>
             <CampArea />
           </Box>
           <div>
@@ -31,8 +32,8 @@ const RightItems = () => {
             </Button>
           </div>
         </Stack>
-        <Stack direction='row' gap={2} alignItems={'start'}>
-          <Box sx={{ flex: 1 }}>
+        <Stack direction='row' gap={2} alignItems={'start'} flexWrap='wrap'>
+          <Box sx={{ flex: 1, minWidth: { xs: '130px' } }}>
             <TextField
               InputLabelProps={{
                 shrink: true,
