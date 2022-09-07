@@ -7,17 +7,18 @@ const MarketplaceContainer = () => {
   return (
     <ConfigureLayout>
       <Grid container sx={{ mt: '50px' }}>
-        <Grid xs={12} md={4}>
+        <Grid xs={12} sm={6} md={4}>
           <Box
             sx={{
               boxShadow: '0 0 10px 0 #c1c1c1',
               boxSizing: 'border-box',
               p: '20px 10px',
               borderRadius: '10px',
+              overflow: 'hidden',
             }}
           >
             <Box>
-              <Box sx={{ width: '200px', height: '200px', margin: 'auto' }}>
+              <Box sx={{ width: '100%', height: '200px', margin: 'auto' }}>
                 <Box
                   as='img'
                   src='https://images.pexels.com/photos/6347720/pexels-photo-6347720.jpeg?auto=compress&cs=tinysrgb&w=600'
