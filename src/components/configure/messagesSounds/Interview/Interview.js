@@ -7,7 +7,11 @@ const InterView = () => {
   return (
     <div>
       <Card title={'Interview'} color='#9b55d6'>
-        <Stack direction='row' gap={4} sx={{ py: '12px' }}>
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          gap={4}
+          sx={{ py: '12px' }}
+        >
           <div>
             <Box sx={{ flex: 1 }}>
               <TextField
@@ -23,7 +27,15 @@ const InterView = () => {
             </Box>
           </div>
           <div>
-            <Box sx={{ flex: 1, width: '200px' }}>
+            <Box
+              sx={{
+                flex: 1,
+                width: {
+                  xs: '95%',
+                  md: '200px',
+                },
+              }}
+            >
               <SelectSound />
             </Box>
           </div>

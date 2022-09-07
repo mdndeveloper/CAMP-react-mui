@@ -7,8 +7,12 @@ const CheckIn = () => {
   return (
     <div>
       <Card title={'Check IN'} color='#82da73'>
-        <Stack direction='row' gap={4} sx={{ py: '12px' }}>
-          <div>
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          gap={4}
+          sx={{ py: '12px' }}
+        >
+          <Box>
             <Box sx={{ flex: 1 }}>
               <TextField
                 InputLabelProps={{
@@ -21,9 +25,9 @@ const CheckIn = () => {
                 fullWidth
               />
             </Box>
-          </div>
+          </Box>
           <div>
-            <Box sx={{ flex: 1, width: '200px' }}>
+            <Box sx={{ flex: 1, width: { xs: '100%', sm: '200px' } }}>
               <SelectSound />
             </Box>
           </div>

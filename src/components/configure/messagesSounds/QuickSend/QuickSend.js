@@ -7,7 +7,11 @@ const QuickSend = () => {
   return (
     <div>
       <Card title={'Quick Send'} color='#6087d4'>
-        <Stack direction='row' gap={4} sx={{ py: '12px' }}>
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          gap={4}
+          sx={{ py: '12px' }}
+        >
           <div>
             <Box sx={{ flex: 1 }}>
               <TextField
@@ -23,7 +27,7 @@ const QuickSend = () => {
             </Box>
           </div>
           <div>
-            <Box sx={{ flex: 1, width: '200px' }}>
+            <Box sx={{ flex: 1, width: { xs: '100%', sm: '200px' } }}>
               <SelectSound />
             </Box>
           </div>
