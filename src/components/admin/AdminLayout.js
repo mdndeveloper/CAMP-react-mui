@@ -1,4 +1,4 @@
-import { Divider, Typography } from '@mui/material';
+import { Divider, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -15,11 +15,11 @@ const AdminLayout = ({ children }) => {
       <Divider />
 
       <Box as='div' sx={{ mt: '15px', pb: '5px' }}>
-        <Box as='div' sx={{ display: 'flex', gap: '15px' }}>
-          <LinkItem text='Locations & Sounds' url='/admin/locations' />
+        <Stack direction={{ xs: 'column', sm: 'row' }} gap={'15px'}>
+          <LinkItem text='Locations' url='/admin/locations' />
           <LinkItem text='Default Messages' url='/admin/default-messages' />
           <LinkItem text='Default Images' url='/admin/default-images' />
-        </Box>
+        </Stack>
       </Box>
       <Divider />
       <div>{children}</div>

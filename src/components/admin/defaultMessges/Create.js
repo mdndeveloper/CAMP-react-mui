@@ -1,6 +1,5 @@
-import { Box, Button, Divider, Paper, Typography } from '@mui/material';
+import { Box, Button, Divider, Paper, Stack, Typography } from '@mui/material';
 import React from 'react';
-import { FaCaretRight } from 'react-icons/fa';
 
 const Create = () => {
   return (
@@ -13,18 +12,20 @@ const Create = () => {
         mt: '30px',
       }}
     >
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
+      <Stack
+        direction='row'
+        alignItems={'center'}
+        justifyContent='space-between'
+        flexWrap={'wrap'}
       >
         <Box
           sx={{
             py: '15px',
             pl: '10px',
-            width: '40%',
+            width: {
+              xs: '95%',
+              sm: '40%',
+            },
             borderTop: '3px solid #5f7686',
           }}
         >
@@ -36,10 +37,19 @@ const Create = () => {
             Create
           </Typography>
         </Box>
-        <Button color={'secondary'} variant='outlined' size='small'>
-          Create <FaCaretRight />
+        <Button
+          sx={{
+            mb: {
+              xs: '10px',
+            },
+          }}
+          color={'secondary'}
+          variant='outlined'
+          size='small'
+        >
+          Create
         </Button>
-      </Box>
+      </Stack>
       <Divider />
       <Box sx={{ height: '300px', boxSizing: 'border-box', p: '10px' }}>
         <h2>Data</h2>

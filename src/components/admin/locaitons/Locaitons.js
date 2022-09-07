@@ -1,8 +1,8 @@
 import { Box } from '@mui/system';
 import React from 'react';
 
-import Create from './Create';
-import Library from './Library';
+import Cams from './Cams';
+import Form from './Form';
 
 const LocationContainer = () => {
   return (
@@ -14,8 +14,8 @@ const LocationContainer = () => {
           mt: '30px',
         }}
       >
-        <Create />
-        <Library />
+        <Form />
+        <Cams />
       </Box>
     </Box>
   );
