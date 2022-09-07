@@ -10,12 +10,19 @@ const ConfigureLayout = ({ children }) => {
         sx={{ textTransform: 'uppercase', mb: '15px' }}
         component={'h2'}
       >
-        Schedule
+        Configure Pupdates
       </Typography>
       <Divider />
 
       <Box as='div' sx={{ mt: '15px', pb: '5px' }}>
-        <Box as='div' sx={{ display: 'flex', gap: '15px' }}>
+        <Box
+          as='div'
+          sx={{
+            display: 'flex',
+            gap: '15px',
+            flexWrap: 'wrap',
+          }}
+        >
           <LinkItem text='Messages & Sounds' url='/configure/messages-sounds' />
           <LinkItem text='Streams' url='/configure/streams' />
           <LinkItem text='Displays' url='/configure/displays' />
