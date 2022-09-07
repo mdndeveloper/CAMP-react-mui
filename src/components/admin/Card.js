@@ -17,7 +17,10 @@ const Card = ({ children, title, color = '#fc74da' }) => {
         sx={{
           py: '15px',
           pl: '10px',
-          width: '40%',
+          width: {
+            xs: '95%',
+            md: '40%',
+          },
           borderTop: `3px solid ${color}`,
         }}
       >
