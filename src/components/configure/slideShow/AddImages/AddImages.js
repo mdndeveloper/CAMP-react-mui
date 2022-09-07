@@ -23,11 +23,14 @@ const AdImages = () => {
       </Box>
       <div>
         <Stack
-          direction='row'
-          gap={2}
+          direction={{
+            xs: 'column',
+            sm: 'row',
+          }}
+          gap={{ xs: 0, sm: 2 }}
           alignItems={'center'}
-          justifyContent='end'
-          sx={{ mb: '50px' }}
+          justifyContent={{ xs: 'center', sm: 'end' }}
+          sx={{ mb: '50px', mt: { xs: '20px', sm: '0' } }}
         >
           <div>
             <Typography variant='h6'>Rotation timer:</Typography>
