@@ -28,7 +28,10 @@ const Messages = () => {
             sx={{
               py: '15px',
               pl: '10px',
-              width: '40%',
+              width: {
+                xs: '95%',
+                sm: '40%',
+              },
               borderTop: '3px solid #6087d4',
             }}
           >

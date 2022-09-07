@@ -7,8 +7,8 @@ const LeftItems = () => {
   return (
     <Box sx={{ boxSizing: 'border-box', px: '10px' }}>
       <Stack gap={4}>
-        <Stack direction='row' gap={2} alignItems={'center'}>
-          <Box sx={{ flex: 1 }}>
+        <Stack direction='row' gap={2} alignItems={'center'} flexWrap='wrap'>
+          <Box sx={{ flex: 1, minWidth: { xs: '130px' } }}>
             <TextField
               InputLabelProps={{
                 shrink: true,
@@ -25,8 +25,8 @@ const LeftItems = () => {
             </Button>
           </div>
         </Stack>
-        <Stack direction='row' gap={2} alignItems={'center'}>
-          <Box sx={{ flex: 1 }}>
+        <Stack direction='row' gap={2} alignItems={'center'} flexWrap='wrap'>
+          <Box sx={{ flex: 1, minWidth: { xs: '130px' } }}>
             <TextField
               InputLabelProps={{
                 shrink: true,
@@ -44,8 +44,8 @@ const LeftItems = () => {
           </div>
         </Stack>
 
-        <Stack direction='row' gap={2} alignItems={'center'}>
-          <Box sx={{ flex: 1 }}>
+        <Stack direction='row' gap={2} alignItems={'center'} flexWrap='wrap'>
+          <Box sx={{ flex: 1, minWidth: { xs: '130px' } }}>
             <QuickSend />
           </Box>
           <div>
