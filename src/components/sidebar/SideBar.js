@@ -10,7 +10,7 @@ const SideBar = ({ elementHeight }) => {
       sx={{
         pt: '20px',
         background: '#557993',
-        height: elementHeight > height - 90 ? elementHeight : height - 90,
+        height: height - 90,
         px: {
           md: '40px',
         },
