@@ -12,6 +12,7 @@ import Marketplace from './pages/confugure/Marketplace';
 import MessagesSounds from './pages/confugure/MessagesSounds';
 import SliderShow from './pages/confugure/SliderShow';
 import Streams from './pages/confugure/Streams';
+import Login from './pages/Login';
 import Messages from './pages/Messages';
 import Schedule from './pages/Schedule';
 import SingleCamera from './pages/SingleCamera';
@@ -22,6 +23,7 @@ const App = () => {
       <Layout>
         <Routes>
           <Route path='/' element={<h2>Home</h2>} />
+          <Route path='/login' element={<Login />} />
           <Route path='/messages' element={<Messages />} />
           <Route path='/schedule' element={<Schedule />} />
           <Route path='/configure' element={<ConfigureRedirect />} />

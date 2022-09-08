@@ -4,15 +4,17 @@ import { useLocation } from 'react-router-dom';
 import Header from '../header/Header';
 import SideBar from '../sidebar/SideBar';
 
-const arrays = ['/cameras', '/camera'];
+const arrays = ['/cameras', '/camera', '/login'];
 
 const Layout = ({ children }) => {
   const [divHeight, setDivHeight] = useState(0);
   const { pathname } = useLocation();
-  const ref = useRef();
+  const ref = useRef(null);
 
   useEffect(() => {
-    setDivHeight(ref.current.clientHeight);
+    if (arrays.includes(pathname)) {
+      setDivHeight(ref?.current?.clientHeight);
+    }
     return () => {
       setDivHeight(0);
     };
