@@ -1,25 +1,15 @@
 import { Box, Grid } from '@mui/material';
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
+import useInnerSize from '../../hooks/useInnerSize';
 import Header from '../header/Header';
 import SideBar from '../sidebar/SideBar';
 
 const arrays = ['/cameras', '/camera', '/login'];
 
 const Layout = ({ children }) => {
-  const [divHeight, setDivHeight] = useState(0);
   const { pathname } = useLocation();
-  const ref = useRef(null);
-
-  useEffect(() => {
-    if (arrays.includes(pathname)) {
-      setDivHeight(ref?.current?.clientHeight);
-    }
-    return () => {
-      setDivHeight(0);
-    };
-  }, [pathname]);
-
+  const { height } = useInnerSize();
   if (arrays.includes(pathname)) {
     return children;
   }
@@ -29,10 +19,17 @@ const Layout = ({ children }) => {
       <Header />
       <Grid container>
         <Grid xs={2} sm={1} md={3}>
-          <SideBar elementHeight={divHeight} />
+          <SideBar />
         </Grid>
         <Grid xs={10} sm={11} md={9}>
-          <Box ref={ref} sx={{ boxSizing: 'border-box', p: '30px' }}>
+          <Box
+            sx={{
+              boxSizing: 'border-box',
+              p: '30px',
+              height: height - 90,
+              overflow: 'auto',
+            }}
+          >
             {children}
           </Box>
         </Grid>
