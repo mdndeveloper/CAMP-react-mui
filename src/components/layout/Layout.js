@@ -5,7 +5,7 @@ import useInnerSize from '../../hooks/useInnerSize';
 import Header from '../header/Header';
 import SideBar from '../sidebar/SideBar';
 
-const arrays = ['/cameras', '/camera', '/login'];
+const arrays = ['/cameras', '/camera', '/login', '/'];
 
 const Layout = ({ children }) => {
   const { pathname } = useLocation();
