@@ -12,36 +12,32 @@ import {
 } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, Navigate } from 'react-router-dom';
+import { loginAsync } from '../../features/login/thunks';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const { error: errorsState, isAuthenticated } = useSelector(
+    (state) => state.auth
+  );
+
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const [errorsState, setErrorsState] = useState('');
-  const authLoginAction = (v, cb) => {
-    console.log(v);
-    cb(true);
-  };
+
   const submitHandler = (values) => {
-    dispatch(
-      authLoginAction(values, (isOk, result) => {
-        if (isOk) {
-          navigate('/accounts');
-        } else {
-          setErrorsState(result?.message);
-          console.log('errors', result);
-        }
-      })
-    );
+    dispatch(loginAsync(values));
   };
+
+  if (isAuthenticated) {
+    return <Navigate to='/messages' />;
+  }
+
   return (
     <Grid
       container
