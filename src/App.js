@@ -20,12 +20,12 @@ import SingleCamera from './pages/SingleCamera';
 
 const App = () => {
   return (
-    <Box sx={{ height: '100vh', overflow: 'hidden' }}>
+    <Box sx={{ height: '100vh', overflow: 'auto' }}>
       <BrowserRouter>
         <Layout>
           <Routes>
             <Route path='/' element={<Login />} />
-            <Route path='/login' element={<Login />} />
+            <Route path='/login' element={<Login />} />j
             <Route path='/messages' element={<Messages />} />
             <Route path='/schedule' element={<Schedule />} />
             <Route path='/configure' element={<ConfigureRedirect />} />
@@ -37,7 +37,6 @@ const App = () => {
             <Route path='/configure/streams' element={<Streams />} />
             <Route path='/configure/marketplace' element={<Marketplace />} />
             <Route path='/configure/displays' element={<Displays />} />
-
             <Route path='/admin' element={<AdminLayout />} />
             <Route path='/admin/locations' element={<Locations />} />
             <Route
