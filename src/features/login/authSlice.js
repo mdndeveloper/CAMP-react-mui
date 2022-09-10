@@ -11,7 +11,12 @@ const initialState = {
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-
+  reducers: {
+    setToken: (state, action) => {
+      state.isAuthenticated = true;
+      state.user = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loginAsync.pending, (state, action) => {
@@ -31,5 +36,7 @@ export const authSlice = createSlice({
       });
   },
 });
+
+export const { setToken } = authSlice.actions;
 
 export default authSlice.reducer;
