@@ -2,10 +2,10 @@ import { Box, Stack } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import * as React from 'react';
 import { FaCamera, FaPen, FaTrashAlt } from 'react-icons/fa';
-import data from './streams.json';
+import { useSelector } from 'react-redux';
 const columns = [
-  { field: 'name', headerName: 'Camera Name', flex: 1 },
-  { field: 'id', headerName: 'ID', width: 130, flex: 1 },
+  { field: 'cameraName', headerName: 'Camera Name', flex: 1 },
+  { field: 'ipAddress', headerName: 'Ip', flex: 2 },
   {
     headerName: 'Icon',
     width: 100,
@@ -71,13 +71,28 @@ const columns = [
 ];
 
 export default function Table() {
-  const [itemPerPage, setItemPerPage] = React.useState(5);
+  const [itemPerPage, setItemPerPage] = React.useState(10);
+
+  const {
+    data: streams,
+    isLoading,
+    error,
+  } = useSelector((state) => state.stream);
+
+  const streamSetup = React.useMemo(() => {
+    if (streams.length === 0) return [];
+    return streams.reduce((acc, cur) => {
+      acc.push(cur);
+      return acc;
+    }, []);
+  }, [streams]);
+
   return (
     <Box sx={{ mt: 4 }}>
       <Box sx={{ display: 'flex', width: '100%' }}>
         <Box sx={{ flexGrow: 1 }}>
           <DataGrid
-            rows={data}
+            rows={streamSetup}
             columns={columns}
             disableSelectionOnClick
             disableColumnMenu

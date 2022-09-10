@@ -1,8 +1,9 @@
 import axios from 'axios';
 import configData from '../config.json';
 import { getAuthUserId } from './auth';
+import { getToken } from './token';
 
-const token = localStorage.getItem('token');
+const token = getToken();
 const baseURL = configData.SERVER_URL;
 
 const axiosInstance = axios.create({
