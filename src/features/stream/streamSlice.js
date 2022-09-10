@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchStreamAsync } from './thunks';
+import { deleteStreamAsync, fetchStreamAsync } from './thunks';
 
 const initialState = {
   isLoading: false,
@@ -23,6 +23,18 @@ export const authSlice = createSlice({
       .addCase(fetchStreamAsync.rejected, (state, action) => {
         state.isLoading = false;
         state.data = [];
+        state.error = action.error.message;
+      })
+      .addCase(deleteStreamAsync.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = '';
+      })
+      .addCase(deleteStreamAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = state.data.filter((i) => i.id !== action.meta.arg);
+      })
+      .addCase(deleteStreamAsync.rejected, (state, action) => {
+        state.isLoading = false;
         state.error = action.error.message;
       });
   },

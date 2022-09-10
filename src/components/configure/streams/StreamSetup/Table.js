@@ -2,7 +2,9 @@ import { Box, Stack } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import * as React from 'react';
 import { FaCamera, FaPen, FaTrashAlt } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteStreamAsync } from '../../../../features/stream/thunks';
+
 const columns = [
   { field: 'cameraName', headerName: 'Camera Name', flex: 1 },
   { field: 'ipAddress', headerName: 'Ip', flex: 2 },
@@ -33,8 +35,11 @@ const columns = [
     field: 'action',
     width: 120,
     sortable: false,
-    renderCell: (props) => {
-      const { row } = props;
+    renderCell: ({ row }) => {
+      const removeHandler = () => {
+        console.log('first');
+        row.dispatch(deleteStreamAsync(row.id));
+      };
 
       return (
         <>
@@ -52,6 +57,7 @@ const columns = [
               <FaPen />
             </Box>
             <Box
+              onClick={removeHandler}
               sx={{
                 cursor: 'pointer',
                 color: 'gray',
@@ -73,6 +79,8 @@ const columns = [
 export default function Table() {
   const [itemPerPage, setItemPerPage] = React.useState(10);
 
+  const dispatch = useDispatch();
+
   const {
     data: streams,
     isLoading,
@@ -82,10 +90,10 @@ export default function Table() {
   const streamSetup = React.useMemo(() => {
     if (streams.length === 0) return [];
     return streams.reduce((acc, cur) => {
-      acc.push(cur);
+      acc.push({ ...cur, dispatch });
       return acc;
     }, []);
-  }, [streams]);
+  }, [streams, dispatch]);
 
   return (
     <Box sx={{ mt: 4 }}>
