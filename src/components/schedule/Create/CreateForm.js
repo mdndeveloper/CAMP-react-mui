@@ -4,15 +4,21 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
-import { addMessageAsync } from '../../../features/message/thunks';
+import { useDispatch, useSelector } from 'react-redux';
+import { inactiveEditMode } from '../../../features/message/messageSlice';
+import {
+  addMessageAsync,
+  updateMessageAsync,
+} from '../../../features/message/thunks';
 import { getAuthUserId } from '../../../utils/auth';
 import DaysSelect from './DaysSelect';
 const today = new Date();
 
 const CreateForm = () => {
+  const { editMode, editing } = useSelector((state) => state.messages);
+
   const {
     register,
     formState: { errors },
@@ -31,6 +37,16 @@ const CreateForm = () => {
     },
   });
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (editMode) {
+      const { dateTime, message, duration } = editing;
+      setValue('dateTime', dateTime);
+      setValue('message', message);
+      setValue('duration', duration);
+    }
+  }, [editMode, editing, setValue]);
+
   const submitHandler = (values) => {
     const data = {
       ...values,
@@ -38,12 +54,22 @@ const CreateForm = () => {
       days: values.days.length,
     };
 
-    dispatch(addMessageAsync(data));
+    const handler = editMode
+      ? updateMessageAsync({ id: editing.id, data })
+      : addMessageAsync(data);
+
+    dispatch(handler);
     reset();
   };
 
   const dayChangeHandler = (value) => {
     setValue('days', value);
+  };
+
+  const cancelUpdateHandler = (e) => {
+    e.preventDefault();
+    dispatch(inactiveEditMode());
+    reset();
   };
 
   return (
@@ -98,7 +124,6 @@ const CreateForm = () => {
                   minDate={today}
                   value={watch('dateTime')}
                   onChange={(newValue) => {
-                    console.log(newValue);
                     setValue('dateTime', newValue);
                     if (errors?.dateTime) {
                       clearErrors('dateTime');
@@ -127,11 +152,21 @@ const CreateForm = () => {
                 fullWidth
               />
             </Box>
-            <Box>
+            <Stack direction={'row'} gap={1}>
               <Button type='submit' variant='contained'>
-                Add
+                {editMode ? 'Update' : 'Add'}
               </Button>
-            </Box>
+              {editMode && (
+                <Button
+                  onClick={cancelUpdateHandler}
+                  type='button'
+                  variant='contained'
+                  color='warning'
+                >
+                  Cancel
+                </Button>
+              )}
+            </Stack>
           </Stack>
         </Grid>
         <Grid xs={12} md={4}>

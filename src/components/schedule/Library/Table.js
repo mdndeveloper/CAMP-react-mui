@@ -4,6 +4,7 @@ import moment from 'moment';
 import * as React from 'react';
 import { FaPen, FaTrashAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
+import { activeEditMode } from '../../../features/message/messageSlice';
 import { deleteMessageAsync } from '../../../features/message/thunks';
 
 const columns = [
@@ -30,7 +31,11 @@ const columns = [
       };
       return (
         <Stack direction={'row'} spacing={1}>
-          <Box component={FaPen} sx={styles} />
+          <Box
+            component={FaPen}
+            sx={styles}
+            onClick={() => row.dispatch(activeEditMode(row))}
+          />
           <Box
             component={FaTrashAlt}
             sx={styles}

@@ -3,17 +3,30 @@ import {
   addMessageAsync,
   deleteMessageAsync,
   fetchMessagesAsync,
+  updateMessageAsync,
 } from './thunks';
 
 const initialState = {
   isLoading: false,
   error: '',
   data: [],
+  editMode: false,
+  editing: {},
 };
 
 export const messageSlice = createSlice({
   name: 'message',
   initialState,
+  reducers: {
+    activeEditMode: (state, action) => {
+      state.editMode = true;
+      state.editing = action.payload;
+    },
+    inactiveEditMode: (state, action) => {
+      state.editMode = false;
+      state.editing = {};
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchMessagesAsync.pending, (state) => {
@@ -52,10 +65,26 @@ export const messageSlice = createSlice({
       .addCase(addMessageAsync.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
+      })
+      .addCase(updateMessageAsync.pending, (state) => {
+        state.isLoading = true;
+        state.error = '';
+      })
+      .addCase(updateMessageAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = state.data.map((i) =>
+          i.id === action.payload.id ? action.payload : i
+        );
+        state.editMode = false;
+        state.editing = {};
+      })
+      .addCase(updateMessageAsync.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
       });
   },
 });
 
-export const { setToken } = messageSlice.actions;
+export const { activeEditMode, inactiveEditMode } = messageSlice.actions;
 
 export default messageSlice.reducer;

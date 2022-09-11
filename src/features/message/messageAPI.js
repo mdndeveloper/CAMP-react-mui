@@ -12,3 +12,6 @@ export async function deleteMessagesApi(id) {
 export async function addMessageApi(data) {
   return axiosInstance.post(`/messages/`, data);
 }
+export async function updateMessageApi({ id, data }) {
+  return axiosInstance.put(`/messages/${id}`, data);
+}
