@@ -2,8 +2,20 @@ import { Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
 import { FaPlus } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { addPhotosAsync } from '../../../../features/slideShow/thunks';
 
 const Add = () => {
+  const dispatch = useDispatch();
+
+  const onChangeHandler = (e) => {
+    const data = {
+      image: e.target.files[0],
+      sliderTime: 90,
+    };
+    dispatch(addPhotosAsync(data));
+  };
+
   return (
     <div>
       <div>
@@ -17,6 +29,8 @@ const Add = () => {
           }}
         >
           <Box
+            as='label'
+            htmlFor='imageInput'
             sx={{
               width: '100%',
               height: '100%',
@@ -28,7 +42,6 @@ const Add = () => {
                 cursor: 'pointer',
               },
             }}
-            as='div'
           >
             <Stack gap={'4px'} alignItems='center'>
               <Typography
@@ -66,6 +79,15 @@ const Add = () => {
             </Stack>
           </Box>
         </Box>
+
+        <Box
+          as='input'
+          type='file'
+          accept='image/*'
+          id='imageInput'
+          onChange={onChangeHandler}
+          sx={{ display: 'none' }}
+        />
       </div>
     </div>
   );
