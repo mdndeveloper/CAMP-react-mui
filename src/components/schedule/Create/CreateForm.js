@@ -75,8 +75,8 @@ const CreateForm = () => {
   return (
     <form onSubmit={handleSubmit(submitHandler)}>
       <Grid container>
-        <Grid xs={12} md={4}>
-          <Box sx={{ mr: '10px' }}>
+        <Grid xs={12} md={4} sx={{ order: 1 }}>
+          <Box sx={{ mr: { md: '10px' } }}>
             <TextField
               placeholder='Automated Messages:'
               multiline
@@ -113,8 +113,8 @@ const CreateForm = () => {
             </Stack>
           </Box>
         </Grid>
-        <Grid xs={12} md={4}>
-          <Stack sx={{ mx: '10px' }} direction='column' gap={2}>
+        <Grid xs={12} md={4} sx={{ order: { xs: 3, md: 2 } }}>
+          <Stack sx={{ mx: { md: '10px' } }} direction='column' gap={2}>
             <Box>
               <LocalizationProvider dateAdapter={AdapterMoment}>
                 <DateTimePicker
@@ -169,8 +169,12 @@ const CreateForm = () => {
             </Stack>
           </Stack>
         </Grid>
-        <Grid xs={12} md={4}>
-          <Box sx={{ width: '300px' }} text={'Days'}>
+        <Grid
+          xs={12}
+          md={4}
+          sx={{ order: { xs: 2, md: 3 }, mb: { xs: 1, md: 0 } }}
+        >
+          <Box sx={{ width: '100%' }}>
             <DaysSelect days={watch('days')} setDays={dayChangeHandler} />
           </Box>
         </Grid>
