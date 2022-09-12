@@ -1,8 +1,15 @@
-import { Divider, Paper, Typography } from '@mui/material';
+import { Divider, Paper, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
 
-const Card = ({ children, title, color = '#fc74da' }) => {
+const Card = (props) => {
+  const {
+    children,
+    title,
+    color = '#fc74da',
+    hasButton = false,
+    button,
+  } = props;
   return (
     <Box
       as={Paper}
@@ -13,25 +20,32 @@ const Card = ({ children, title, color = '#fc74da' }) => {
         mt: '30px',
       }}
     >
-      <Box
-        sx={{
-          py: '15px',
-          pl: '10px',
-          width: {
-            xs: '95%',
-            md: '40%',
-          },
-          borderTop: `3px solid ${color}`,
-        }}
+      <Stack
+        direction={hasButton ? 'row' : 'column'}
+        justifyContent='space-between'
+        alignItems={hasButton ? 'center' : 'start'}
       >
-        <Typography
-          variant='body1'
-          sx={{ textTransform: 'uppercase', color }}
-          component={'h2'}
+        <Box
+          sx={{
+            py: '15px',
+            pl: '10px',
+            width: {
+              xs: '95%',
+              md: '40%',
+            },
+            borderTop: `3px solid ${color}`,
+          }}
         >
-          {title}
-        </Typography>
-      </Box>
+          <Typography
+            variant='body1'
+            sx={{ textTransform: 'uppercase', color }}
+            component={'h2'}
+          >
+            {title}
+          </Typography>
+        </Box>
+        {hasButton && button}
+      </Stack>
       <Divider />
       <Box sx={{ boxSizing: 'border-box', p: '10px' }}>
         <h2>{children}</h2>
