@@ -1,5 +1,6 @@
 import { Box, Divider, Paper, Typography } from '@mui/material';
 import React from 'react';
+import Table from './Table';
 
 const Library = () => {
   return (
@@ -32,8 +33,8 @@ const Library = () => {
         </Typography>
       </Box>
       <Divider />
-      <Box sx={{ height: '300px', boxSizing: 'border-box', p: '10px' }}>
-        <h2>Data</h2>
+      <Box sx={{ minHeight: '300px', boxSizing: 'border-box', p: '10px' }}>
+        <Table />
       </Box>
     </Box>
   );

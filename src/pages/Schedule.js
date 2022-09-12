@@ -1,9 +1,15 @@
 import { Box, Divider, Typography } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import Create from '../components/schedule/Create';
 import Library from '../components/schedule/Library';
+import { fetchMessagesAsync } from '../features/message/thunks';
 
 const Schedule = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchMessagesAsync());
+  }, [dispatch]);
   return (
     <div>
       <Box sx={{}}>
