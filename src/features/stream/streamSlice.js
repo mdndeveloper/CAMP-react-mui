@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { deleteStreamAsync, fetchStreamAsync } from './thunks';
+import {
+  addStreamAsync,
+  deleteStreamAsync,
+  fetchStreamAsync,
+  updateStreamAsync,
+} from './thunks';
 
 const initialState = {
   isLoading: false,
@@ -34,6 +39,36 @@ export const authSlice = createSlice({
         state.data = state.data.filter((i) => i.id !== action.meta.arg);
       })
       .addCase(deleteStreamAsync.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(addStreamAsync.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = '';
+      })
+      .addCase(addStreamAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data.push(action.payload);
+      })
+      .addCase(addStreamAsync.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(updateStreamAsync.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = '';
+      })
+      .addCase(updateStreamAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+        console.log(action);
+        state.data = state.data.map((i) => {
+          if (i.id === action.meta.arg.id) {
+            return action.payload;
+          }
+          return i;
+        });
+      })
+      .addCase(updateStreamAsync.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
       });

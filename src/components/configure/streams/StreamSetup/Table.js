@@ -1,9 +1,11 @@
 import { Box, Stack } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import * as React from 'react';
+import { useState } from 'react';
 import { FaCamera, FaPen, FaTrashAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteStreamAsync } from '../../../../features/stream/thunks';
+import EditCamera from './EditCamera';
 
 const columns = [
   { field: 'cameraName', headerName: 'Camera Name', flex: 1 },
@@ -40,6 +42,10 @@ const columns = [
         console.log('first');
         row.dispatch(deleteStreamAsync(row.id));
       };
+      const openModal = () => {
+        row.setOpen(true);
+        row.setSelectedId(row.id);
+      };
 
       return (
         <>
@@ -53,6 +59,7 @@ const columns = [
                   color: '#6087D4',
                 },
               }}
+              onClick={openModal}
             >
               <FaPen />
             </Box>
@@ -77,7 +84,9 @@ const columns = [
 ];
 
 export default function Table() {
-  const [itemPerPage, setItemPerPage] = React.useState(10);
+  const [itemPerPage, setItemPerPage] = useState(10);
+  const [selectedId, setSelectedId] = React.useState(null);
+  const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -90,7 +99,7 @@ export default function Table() {
   const streamSetup = React.useMemo(() => {
     if (streams.length === 0) return [];
     return streams.reduce((acc, cur) => {
-      acc.push({ ...cur, dispatch });
+      acc.push({ ...cur, dispatch, setOpen, setSelectedId });
       return acc;
     }, []);
   }, [streams, dispatch]);
@@ -113,6 +122,16 @@ export default function Table() {
           />
         </Box>
       </Box>
+      {selectedId && (
+        <EditCamera
+          open={open}
+          setOpen={(result) => {
+            setOpen(result);
+            setSelectedId(null);
+          }}
+          id={selectedId}
+        />
+      )}
     </Box>
   );
 }
