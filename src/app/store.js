@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { userApiSlice } from '../features/admin/userApiSlice';
 import authSlice from '../features/login/authSlice';
 import messageSlice from '../features/message/messageSlice';
 import slidePhotoSlice from '../features/slideShow/slidePhotoSlice';
@@ -10,5 +11,6 @@ export const store = configureStore({
     stream: streamSlice,
     messages: messageSlice,
     slide: slidePhotoSlice,
+    [userApiSlice.reducerPath]: userApiSlice.reducer,
   },
 });

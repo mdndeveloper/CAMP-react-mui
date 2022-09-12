@@ -1,10 +1,11 @@
 import { Box } from '@mui/system';
-import React from 'react';
-
+import React, { useState } from 'react';
 import Cams from './Cams';
+
 import Form from './Form';
 
 const LocationContainer = () => {
+  const [search, setSearch] = useState('');
   return (
     <Box sx={{ mt: '30px' }}>
       <Box
@@ -14,8 +15,8 @@ const LocationContainer = () => {
           mt: '30px',
         }}
       >
-        <Form />
-        <Cams />
+        <Form setSearch={setSearch} search={search} />
+        <Cams search={search} />
       </Box>
     </Box>
   );
