@@ -1,7 +1,7 @@
 import { Divider, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 const ConfigureLayout = ({ children }) => {
   return (
     <>
@@ -37,13 +37,15 @@ const ConfigureLayout = ({ children }) => {
 };
 
 const LinkItem = ({ url, text }) => {
+  const { pathname } = useLocation();
+
   return (
     <Box
       as={Link}
       sx={{
         display: 'block',
         textDecoration: 'none',
-        color: '#4f4f4f',
+        color: pathname === url ? '#81b1d9' : '#4f4f4f',
         fontSize: '20px',
         transition: 'all 0.5s',
         '&:hover': {

@@ -2,7 +2,6 @@ import { Box } from '@mui/material';
 import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
-import AdminLayout from './components/admin/AdminLayout';
 import Layout from './components/layout/Layout';
 import DefaultImages from './pages/admin/DefaultImages';
 import DefaultMessages from './pages/admin/DefaultMessages';
@@ -39,7 +38,7 @@ const App = () => {
               <Route path='/configure/streams' element={<Streams />} />
               <Route path='/configure/marketplace' element={<Marketplace />} />
               <Route path='/configure/displays' element={<Displays />} />
-              <Route path='/admin' element={<AdminLayout />} />
+              <Route path='/admin' element={<AdminRedirect />} />
               <Route path='/admin/locations' element={<Locations />} />
               <Route
                 path='/admin/default-messages'
@@ -58,6 +57,9 @@ const App = () => {
 
 const ConfigureRedirect = () => {
   return <Navigate to={'/configure/messages-sounds'} />;
+};
+const AdminRedirect = () => {
+  return <Navigate to={'/admin/default-images'} />;
 };
 
 export default App;
