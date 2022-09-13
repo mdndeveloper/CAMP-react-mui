@@ -1,42 +1,49 @@
-import { Box, Divider, Paper, Typography } from '@mui/material';
-import React from 'react';
+import { Box, Button } from '@mui/material';
+import React, { useMemo, useState } from 'react';
+import { useGetUsersQuery } from '../../../features/admin/userApiSlice';
+import Card from '../Card';
+import CameraAddModal from './CameraAddModal/CameraAddModal';
+import CamsTable from './CamsTable';
 
-const Cams = () => {
+const Cams = ({ search }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const { data, isLoading, isError, isSuccess } = useGetUsersQuery();
+
+  const filteredData = useMemo(() => {
+    if (!isSuccess) return [];
+    return data.reduce((acc, cur) => {
+      if (!search) {
+        acc.push(cur);
+        return acc;
+      }
+      const condition = cur.cname.toLowerCase().includes(search.toLowerCase());
+      if (condition) acc.push(cur);
+      return acc;
+    }, []);
+  }, [isSuccess, data, search]);
+
+  if (isLoading && isError) return null;
+
   return (
-    <Box
-      as={Paper}
-      sx={{
-        boxSizing: 'border-box',
-        px: '10px',
-        borderRadius: '10px',
-        mt: '30px',
-      }}
+    <Card
+      title='Cams'
+      color='#5f7686'
+      hasButton
+      button={<CreateButton setOpen={setIsOpen} />}
     >
-      <Box
-        sx={{
-          py: '15px',
-          pl: '10px',
-          width: {
-            xs: '95%',
-            sm: '40%',
-          },
-          borderTop: '3px solid #5f7686',
-        }}
-      >
-        <Typography
-          variant='body1'
-          sx={{ textTransform: 'uppercase' }}
-          component={'h2'}
-        >
-          Cams
-        </Typography>
+      <Box sx={{ minHeight: '300px', boxSizing: 'border-box' }}>
+        <CamsTable data={filteredData} />
       </Box>
+      <CameraAddModal open={isOpen} setOpen={setIsOpen} />
+    </Card>
+  );
+};
 
-      <Divider />
-      <Box sx={{ height: '300px', boxSizing: 'border-box', p: '10px' }}>
-        <h2>Data</h2>
-      </Box>
-    </Box>
+const CreateButton = ({ setOpen }) => {
+  return (
+    <Button variant='contained' onClick={() => setOpen(true)}>
+      Create
+    </Button>
   );
 };
 

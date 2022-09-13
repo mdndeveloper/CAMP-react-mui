@@ -2,7 +2,7 @@ import { Button, Grid, TextField } from '@mui/material';
 import { Box, Stack } from '@mui/system';
 import React from 'react';
 
-const Form = () => {
+const Form = ({ search, setSearch }) => {
   return (
     <form>
       <Grid container justifyContent={'center'}>
@@ -17,6 +17,8 @@ const Form = () => {
                 variant='outlined'
                 placeholder='Begin typing camp name here'
                 fullWidth
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
               />
             </Box>
             <div>
