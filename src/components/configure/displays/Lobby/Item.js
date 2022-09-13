@@ -1,10 +1,27 @@
 import { Box, Grid, Stack } from '@mui/material';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useUpdateConfigMutation } from '../../../../features/userConfig/userConfigApiSlice';
 
 const Item = (props) => {
-  const { rowCount = 1, columnCount = 1 } = props;
+  const { rowCount = 1, columnCount = 1, name, orientation, configId } = props;
   const height = 130 + 50;
   const width = 150 + 50;
+
+  const [updateConfig] = useUpdateConfigMutation();
+
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    const or = orientation ? `_${orientation}` : '';
+    const re = name === `cam_${rowCount * columnCount}${or}`;
+    setIsActive(re);
+  }, [name, orientation, rowCount, columnCount]);
+
+  const updateHandler = () => {
+    const or = orientation ? `_${orientation}` : '';
+    const cameraDisplay = `cam_${rowCount * columnCount}${or}`;
+    updateConfig({ id: configId, data: { cameraDisplay } });
+  };
 
   return (
     <Box component='div' sx={{ mb: 1 }}>
@@ -16,9 +33,12 @@ const Item = (props) => {
         }}
         alignItems='start'
       >
-        <Box>
+        <Box sx={{ '&:hover': { cursor: 'pointer' } }} onClick={updateHandler}>
           {rowCount === 1 ? (
-            <Box component={'div'} sx={styles.singleBox({ height, width })}>
+            <Box
+              component={'div'}
+              sx={styles.singleBox({ height, width, isActive })}
+            >
               1
             </Box>
           ) : (
@@ -32,7 +52,7 @@ const Item = (props) => {
                 {new Array(rowCount * columnCount).fill().map((_, i) => {
                   return (
                     <Grid xs={11 / columnCount}>
-                      <Box sx={styles.box}>
+                      <Box sx={styles.box({ isActive })}>
                         {i + 1 === rowCount * columnCount ? i + 1 : ''}
                       </Box>
                     </Grid>
@@ -50,19 +70,19 @@ const Item = (props) => {
 export default Item;
 
 const styles = {
-  singleBox: ({ width, height }) => ({
+  singleBox: ({ width, height, isActive }) => ({
     height: `${height}px`,
     width: `${width - (width * 5) / 100}px`,
-    background: '#81b1d9',
+    background: isActive ? '#81b1d9' : '#d1d0d0',
     borderRadius: '4px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    color: '#fff',
+    color: isActive ? '#fff' : '#000',
   }),
-  box: {
+  box: ({ isActive }) => ({
     borderRadius: '4px',
-    bgcolor: '#81b1d9',
+    background: isActive ? '#81b1d9' : '#d1d0d0',
     boxSizing: 'border-box',
     padding: '4px',
     width: '100%',
@@ -70,6 +90,6 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    color: '#fff',
-  },
+    color: isActive ? '#fff' : '#000',
+  }),
 };
