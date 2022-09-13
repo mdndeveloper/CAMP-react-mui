@@ -31,7 +31,7 @@ const CamsTable = ({ data, isOpen, setIsOpen }) => {
               to={`/dashboard`}
               onClick={() => {
                 setIsOpen(true);
-                setSelectedItem(row.id);
+                row.setSelectedItem(row.id);
               }}
             >
               {formattedValue}
@@ -61,7 +61,7 @@ const CamsTable = ({ data, isOpen, setIsOpen }) => {
 
   const filterData = useMemo(() => {
     return data.reduce((acc, cur) => {
-      acc.push({ ...cur, deleteUser });
+      acc.push({ ...cur, deleteUser, setSelectedItem });
       return acc;
     }, []);
   }, [data, deleteUser]);

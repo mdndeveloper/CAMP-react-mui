@@ -13,4 +13,5 @@ export const store = configureStore({
     slide: slidePhotoSlice,
     [userApiSlice.reducerPath]: userApiSlice.reducer,
   },
+  middleware: (defaults) => defaults().concat(userApiSlice.middleware),
 });
