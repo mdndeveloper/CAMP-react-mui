@@ -2,9 +2,18 @@ import { Box } from '@mui/material';
 import MenuList from '@mui/material/MenuList';
 import React from 'react';
 import { FaAngleRight, FaRegQuestionCircle, FaUserAlt } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../features/login/authSlice';
+import { removeToken } from '../../utils/token';
 import Item from './Item';
 
 function UserMenu() {
+  const dispatch = useDispatch();
+  const logoutHandler = () => {
+    removeToken();
+    dispatch(logout());
+  };
+
   return (
     <Box
       sx={{
@@ -20,7 +29,7 @@ function UserMenu() {
           icon={<FaRegQuestionCircle />}
         />
         <Item
-          onClick={() => alert('logout')}
+          onClick={logoutHandler}
           text={'Log Out'}
           icon={<FaAngleRight />}
         />
