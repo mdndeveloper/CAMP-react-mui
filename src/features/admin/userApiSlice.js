@@ -38,10 +38,7 @@ export const userApiSlice = createApi({
         method: 'PATCH',
         body: data,
       }),
-      invalidatesTags: (result, error, arg) => [
-        'Users',
-        { type: 'User', id: arg.id },
-      ],
+      invalidatesTags: ['Users'],
     }),
     deleteUser: builder.mutation({
       query: (id) => ({

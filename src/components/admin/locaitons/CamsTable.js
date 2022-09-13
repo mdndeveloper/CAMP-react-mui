@@ -3,10 +3,12 @@ import { Box, Button } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useMemo, useState } from 'react';
 import { useDeleteUserMutation } from '../../../features/admin/userApiSlice';
-// import UserInfoModal from './UserInfoModal/UserInfoModal';
+import CameraEditModal from './CameraEditModal/CameraEditModal';
 
-const CamsTable = ({ data, isOpen, setIsOpen }) => {
+const CamsTable = ({ data }) => {
   const [selectedItem, setSelectedItem] = useState(null);
+
+  const [isOpen, setIsOpen] = useState(false);
 
   const [deleteUser] = useDeleteUserMutation();
 
@@ -30,7 +32,7 @@ const CamsTable = ({ data, isOpen, setIsOpen }) => {
               }}
               to={`/dashboard`}
               onClick={() => {
-                setIsOpen(true);
+                row.setIsOpen(true);
                 row.setSelectedItem(row.id);
               }}
             >
@@ -61,7 +63,7 @@ const CamsTable = ({ data, isOpen, setIsOpen }) => {
 
   const filterData = useMemo(() => {
     return data.reduce((acc, cur) => {
-      acc.push({ ...cur, deleteUser, setSelectedItem });
+      acc.push({ ...cur, deleteUser, setSelectedItem, setIsOpen });
       return acc;
     }, []);
   }, [data, deleteUser]);
@@ -86,16 +88,16 @@ const CamsTable = ({ data, isOpen, setIsOpen }) => {
           </Box>
         </Box>
       </Box>
-      {/* <UserInfoModal
-        open={isOpen}
-        setOpen={(result, reset) => {
-          reset();
-          setSelectedItem(null);
-          setIsOpen(result);
-        }}
-        selectedItem={selectedItem}
-        setSelectedItem={setSelectedItem}
-      /> */}
+      {isOpen && (
+        <CameraEditModal
+          open={isOpen}
+          setOpen={(result) => {
+            setSelectedItem(null);
+            setIsOpen(result);
+          }}
+          id={selectedItem}
+        />
+      )}
     </>
   );
 };
