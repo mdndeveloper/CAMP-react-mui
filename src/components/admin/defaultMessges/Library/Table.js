@@ -1,11 +1,11 @@
 import { Box, Stack } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import moment from 'moment';
-import React, { useMemo } from 'react';
+import * as React from 'react';
 import { FaPen, FaTrashAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { activeEditMode } from '../../../features/message/messageSlice';
-import { deleteMessageAsync } from '../../../features/message/thunks';
+import { activeEditMode } from '../../../../features/message/messageSlice';
+import { deleteMessageAsync } from '../../../../features/message/thunks';
 
 const columns = [
   { headerName: 'Message:', field: 'message', width: 250 },
@@ -35,7 +35,7 @@ const columns = [
             component={FaPen}
             sx={styles}
             onClick={() =>
-              row.dispatch(activeEditMode({ data: row, type: 'schedule' }))
+              row.dispatch(activeEditMode({ data: row, type: 'admin' }))
             }
           />
           <Box
@@ -60,15 +60,10 @@ export default function Table() {
     error,
   } = useSelector((state) => state.messages);
 
-  const scheduleMessages = useMemo(() => {
-    // return whatever data you want from redux state
-    if (messages.length <= 0) return [];
-
+  const messageFormate = React.useMemo(() => {
+    if (messages.length === 0) return [];
     return messages.reduce((acc, cur) => {
-      const condition = moment().isBefore(cur.dateTime, 'day');
-      if (condition) {
-        acc.push({ ...cur, dispatch });
-      }
+      acc.push({ ...cur, dispatch });
       return acc;
     }, []);
   }, [messages, dispatch]);
@@ -78,7 +73,7 @@ export default function Table() {
       <Box sx={{ display: 'flex', width: '100%' }}>
         <Box sx={{ flexGrow: 1 }}>
           <DataGrid
-            rows={scheduleMessages}
+            rows={messageFormate}
             columns={columns}
             disableSelectionOnClick
             disableColumnMenu

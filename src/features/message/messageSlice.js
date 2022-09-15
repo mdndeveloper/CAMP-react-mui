@@ -12,6 +12,7 @@ const initialState = {
   data: [],
   editMode: false,
   editing: {},
+  type: '',
 };
 
 export const messageSlice = createSlice({
@@ -20,11 +21,13 @@ export const messageSlice = createSlice({
   reducers: {
     activeEditMode: (state, action) => {
       state.editMode = true;
-      state.editing = action.payload;
+      state.editing = action.payload.data;
+      state.type = action.payload.type;
     },
     inactiveEditMode: (state, action) => {
       state.editMode = false;
       state.editing = {};
+      state.type = '';
     },
   },
   extraReducers: (builder) => {

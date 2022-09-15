@@ -1,5 +1,6 @@
 import { Box, Button, Divider, Paper, Stack, Typography } from '@mui/material';
 import React from 'react';
+import CreateForm from './CreateForm';
 
 const Create = () => {
   return (
@@ -51,8 +52,8 @@ const Create = () => {
         </Button>
       </Stack>
       <Divider />
-      <Box sx={{ height: '300px', boxSizing: 'border-box', p: '10px' }}>
-        <h2>Data</h2>
+      <Box sx={{ minHeight: '300px', boxSizing: 'border-box', p: '10px' }}>
+        <CreateForm />
       </Box>
     </Box>
   );

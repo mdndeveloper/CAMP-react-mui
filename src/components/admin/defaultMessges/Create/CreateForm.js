@@ -7,12 +7,12 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { inactiveEditMode } from '../../../features/message/messageSlice';
+import { inactiveEditMode } from '../../../../features/message/messageSlice';
 import {
   addMessageAsync,
   updateMessageAsync,
-} from '../../../features/message/thunks';
-import { getAuthUserId } from '../../../utils/auth';
+} from '../../../../features/message/thunks';
+import { getAuthUserId } from '../../../../utils/auth';
 import DaysSelect from './DaysSelect';
 const today = new Date();
 
@@ -39,7 +39,7 @@ const CreateForm = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (editMode && type === 'schedule') {
+    if (editMode && type === 'admin') {
       const { dateTime, message, duration } = editing;
       setValue('dateTime', dateTime);
       setValue('message', message);
