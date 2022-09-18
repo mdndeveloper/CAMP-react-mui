@@ -18,7 +18,7 @@ const Layout = ({ children }) => {
     <div>
       <Header />
       <Grid container>
-        <Grid xs={2} sm={1} md={3}>
+        <Grid xs={2} sm={1} md={3} xl={2}>
           <SideBar />
         </Grid>
         <Grid xs={10} sm={11} md={9}>
