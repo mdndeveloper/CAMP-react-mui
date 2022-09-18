@@ -2,8 +2,6 @@ import { createTheme } from '@mui/material/styles';
 
 const headingData = {
   fontFamily: ['Lato'].join(','),
-  letterSpacing: 1,
-  fontWeight: 300,
 };
 
 const headings = {
@@ -16,7 +14,6 @@ const headings = {
 };
 
 const theme = createTheme({
-  //   fontFamily: ['Lato', 'sans-serif'].join(','),
   typography: {
     fontFamily: ['Lato', 'sans-serif'].join(','),
     ...headings,

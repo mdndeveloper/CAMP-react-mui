@@ -6,16 +6,14 @@ const ConfigureLayout = ({ children }) => {
   return (
     <>
       <Typography
-        variant='h5'
+        variant='h6'
         sx={{
           textTransform: 'uppercase',
-          mb: '15px',
         }}
-        component={'h2'}
+        component={'h1'}
       >
         Configure Pupdates
       </Typography>
-      <Divider />
 
       <Box as='div' sx={{ mt: '15px', pb: '0' }}>
         <Box
@@ -36,7 +34,7 @@ const ConfigureLayout = ({ children }) => {
           <LinkItem text='Marketplace' url='/configure/marketplace' />
         </Box>
       </Box>
-      <Divider />
+      <Divider sx={{ width: '80%' }} />
       <div>{children}</div>
     </>
   );
