@@ -21,7 +21,7 @@ const Layout = ({ children }) => {
         <Grid xs={2} sm={1} md={3} xl={2}>
           <SideBar />
         </Grid>
-        <Grid xs={10} sm={11} md={9}>
+        <Grid xs={10} sm={11} md={9} xl={10}>
           <Box
             sx={{
               boxSizing: 'border-box',

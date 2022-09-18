@@ -5,7 +5,7 @@ import PUpdateLayout from './PUpdates/PUpdateLayout';
 
 const DisplaysContainer = () => {
   return (
-    <Box sx={{ mt: '30px' }}>
+    <Box sx={{ mt: '30px', fontFamily: `'Lato' , sans-serif` }}>
       <LobbyLayout />
       <PUpdateLayout />
     </Box>
