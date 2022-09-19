@@ -6,21 +6,25 @@ const ConfigureLayout = ({ children }) => {
   return (
     <>
       <Typography
-        variant='h5'
-        sx={{ textTransform: 'uppercase', mb: '15px' }}
-        component={'h2'}
+        variant='h6'
+        sx={{
+          textTransform: 'uppercase',
+        }}
+        component={'h1'}
       >
         Configure Pupdates
       </Typography>
-      <Divider />
 
-      <Box as='div' sx={{ mt: '15px', pb: '5px' }}>
+      <Box as='div' sx={{ mt: '15px', pb: '0' }}>
         <Box
           as='div'
           sx={{
             display: 'flex',
-            gap: '15px',
+            gap: '20px',
             flexWrap: 'wrap',
+            fontFamily: `Lato`,
+            fontWeight: 300,
+            letterSpacing: 1,
           }}
         >
           <LinkItem text='Messages & Sounds' url='/configure/messages-sounds' />
@@ -30,7 +34,7 @@ const ConfigureLayout = ({ children }) => {
           <LinkItem text='Marketplace' url='/configure/marketplace' />
         </Box>
       </Box>
-      <Divider />
+      <Divider sx={{ width: '80%' }} />
       <div>{children}</div>
     </>
   );

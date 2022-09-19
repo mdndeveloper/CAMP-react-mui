@@ -14,7 +14,7 @@ const Schedule = () => {
     <div>
       <Box sx={{}}>
         <Typography
-          variant='h5'
+          variant='h6'
           sx={{ textTransform: 'uppercase', mb: '15px' }}
           component={'h2'}
         >
