@@ -14,7 +14,7 @@ export const getAuthUserId = () => {
   const user = getAuthUser();
 
   if (Object.keys(user).length > 0) {
-    return user.user.id;
+    return user?.user?.id || null;
   }
   return null;
 };
