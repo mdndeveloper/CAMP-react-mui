@@ -1,18 +1,30 @@
 import { Box } from '@mui/material';
 import { Stack } from '@mui/system';
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import Card from '../../Card';
 import Add from './Add';
-import data from './data.json';
 import Item from './Item';
+const PHOTOS_BASE_URL =
+  'https://dev.preschoolreports.com/admin/timthumb.php?src=admin/photo_slides/';
 
 const PhotoImages = () => {
+  const { photos } = useSelector((state) => state.slide);
+
+  const formatePhotos = useMemo(() => {
+    if (photos.length === 0) return [];
+    return photos.reduce((acc, cur) => {
+      acc.push({ ...cur, file_name: PHOTOS_BASE_URL + cur.file_name });
+      return acc;
+    }, []);
+  }, [photos]);
+
   return (
     <div>
       <Card title='Photo Images'>
         <Stack direction={'row'} gap={2} flexWrap={'wrap'}>
-          {data.slice(0, 1).map((item) => (
-            <Item key={item.id} image={item.image} />
+          {formatePhotos.map((item) => (
+            <Item key={item.id} id={item.id} image={item.file_name} />
           ))}
           <Add />
         </Stack>
