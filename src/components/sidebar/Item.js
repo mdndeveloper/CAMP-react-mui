@@ -10,7 +10,13 @@ const Item = ({ text, icon, url = '', ...rest }) => {
   };
   return (
     <MenuItem onClick={handler} {...rest}>
-      <ListItemIcon sx={{ mr: '10px', fontSize: '27px', color: '#fff' }}>
+      <ListItemIcon
+        sx={{
+          mr: '10px',
+          fontSize: { xs: '33px', sm: '30', md: '29px' },
+          color: '#fff',
+        }}
+      >
         {icon}
       </ListItemIcon>
       <ListItemText
@@ -21,7 +27,7 @@ const Item = ({ text, icon, url = '', ...rest }) => {
           },
         }}
       >
-        <Typography sx={{ fontSize: '22px', color: '#fff' }}>{text}</Typography>
+        <Typography sx={{ fontSize: '25px', color: '#fff' }}>{text}</Typography>
       </ListItemText>
     </MenuItem>
   );
