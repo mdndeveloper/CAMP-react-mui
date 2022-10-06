@@ -1,5 +1,7 @@
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Button } from '@mui/material';
+import EastOutlinedIcon from '@mui/icons-material/EastOutlined';
+import EditIcon from '@mui/icons-material/Edit';
+import { Box, Stack } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useMemo, useState } from 'react';
 import { useDeleteUserMutation } from '../../../features/admin/userApiSlice';
@@ -46,16 +48,47 @@ const CamsTable = ({ data }) => {
     { headerName: 'Email:', field: 'email', width: 200 },
     { headerName: 'Location:', field: 'location', width: 150 },
     {
-      headerName: 'Delete',
-      width: 100,
+      headerName: 'Action',
+      width: 150,
       renderCell: (props) => {
-        const { id, deleteUser } = props.row;
+        const { id, deleteUser, setIsOpen, setSelectedItem } = props.row;
+
         return (
-          <div className='flex gap-x-1'>
-            <Button color='error' onClick={() => deleteUser(id)}>
+          <Stack direction={'row'} spacing={1} className='flex gap-x-1'>
+            <Box
+              sx={{
+                color: '#1874D0',
+                cursor: 'pointer',
+              }}
+              color='error'
+              onClick={() => {
+                setIsOpen(true);
+                setSelectedItem(id);
+              }}
+            >
+              <EditIcon />
+            </Box>
+            <Box
+              sx={{
+                color: '#A51E36',
+                cursor: 'pointer',
+              }}
+              color='error'
+              onClick={() => deleteUser(id)}
+            >
               <CloseIcon />
-            </Button>
-          </div>
+            </Box>
+            <Box
+              sx={{
+                color: '#82da73',
+                cursor: 'pointer',
+              }}
+              color='error'
+              onClick={() => deleteUser(id)}
+            >
+              <EastOutlinedIcon />
+            </Box>
+          </Stack>
         );
       },
     },
