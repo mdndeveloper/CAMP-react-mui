@@ -47,7 +47,7 @@ const LoginForm = () => {
     >
       <Grid xs={12} sm={12} md={9}>
         <Typography variant='h6' component={'h3'} sx={styles.title}>
-          Preschool Reports Communication Platform
+          Pupdates Communication Platform
         </Typography>
         <Box component='div' sx={styles.content}>
           <Grid container>
@@ -140,8 +140,8 @@ const LoginForm = () => {
                 </Box>
                 {/* submit button and forgot password */}
                 <Grid container alignItems={'center'} sx={{}}>
-                  <Grid xs={3}></Grid>
-                  <Grid xs={9}>
+                  <Grid xs={12} md={3}></Grid>
+                  <Grid xs={12} md={9}>
                     <Stack
                       direction={'row'}
                       spacing={2}
@@ -171,10 +171,13 @@ const LoginForm = () => {
           <Box component={'div'} sx={{ mt: '35px' }}>
             <div>
               <b>Need assistance or training?</b>
-              <span>visit your pb&jTV Team at:</span>
-              <Link to={'http://pbjtv.zendesk.com'} target={'_blank'}>
-                http://pbjtv.zendesk.com
-              </Link>
+              <a
+                href={'https://campercamsupport.zendesk.com/hc/en-us'}
+                target={'_blank'}
+                rel='noreferrer'
+              >
+                CLICK HERE
+              </a>
             </div>
           </Box>
         </Box>
