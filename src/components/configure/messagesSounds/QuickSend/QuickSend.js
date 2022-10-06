@@ -38,7 +38,7 @@ const QuickSend = () => {
                   shrink: true,
                 }}
                 type='number'
-                label='Duration'
+                label='Duration (sec)'
                 variant='outlined'
                 placeholder={'input here'}
                 defaultValue={90}
