@@ -1,5 +1,6 @@
 import { Box, Grid } from '@mui/material';
 import React from 'react';
+import ExportCsv from './ExportCsv/ExportCsv';
 import LeftItems from './LeftItems/LeftItems';
 import RightItems from './RightItems/RightItems';
 
@@ -14,6 +15,9 @@ const MessageForm = () => {
         </Grid>
         <Grid xs={12} md={6}>
           <RightItems />
+        </Grid>
+        <Grid xs={12}>
+          <ExportCsv />
         </Grid>
       </Grid>
     </Box>

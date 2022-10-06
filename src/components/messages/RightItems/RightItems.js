@@ -16,7 +16,7 @@ const RightItems = () => {
               label='Pet Name'
               variant='outlined'
               placeholder='Input here'
-              sx={{ width: '150px' }}
+              sx={{ width: '100%' }}
               fullWidth
             />
           </Box>
