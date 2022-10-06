@@ -1,9 +1,12 @@
-import { Box, Button, TextField } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import { Box, TextField } from '@mui/material';
 import { Stack } from '@mui/system';
-import React from 'react';
+import React, { useState } from 'react';
 import CampArea from './CampArea';
 
 const RightItems = () => {
+  const [isLoading1, setIsLoading1] = useState(false);
+  const [isLoading2, setIsLoading2] = useState(false);
   return (
     <div>
       <Stack gap={4}>
@@ -24,12 +27,19 @@ const RightItems = () => {
             <CampArea />
           </Box>
           <div>
-            <Button
+            <LoadingButton
+              loading={isLoading1}
+              onClick={() => {
+                setIsLoading1(true);
+                setTimeout(() => {
+                  setIsLoading1(false);
+                }, 1000 * 2);
+              }}
               sx={{ width: '100px', background: '#9b55d6' }}
               variant='contained'
             >
               Interview
-            </Button>
+            </LoadingButton>
           </div>
         </Stack>
         <Stack direction='row' gap={2} alignItems={'start'} flexWrap='wrap'>
@@ -48,9 +58,19 @@ const RightItems = () => {
             />
           </Box>
           <div>
-            <Button variant='contained' sx={{ background: '#fc74da' }}>
+            <LoadingButton
+              loading={isLoading2}
+              onClick={() => {
+                setIsLoading2(true);
+                setTimeout(() => {
+                  setIsLoading2(false);
+                }, 1000 * 2);
+              }}
+              variant='contained'
+              sx={{ background: '#fc74da' }}
+            >
               Send
-            </Button>
+            </LoadingButton>
           </div>
         </Stack>
       </Stack>
