@@ -4,7 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import React from 'react';
 import { FaAngleRight, FaRegQuestionCircle, FaUserAlt } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../features/login/authSlice';
 import { removeToken } from '../../utils/token';
 import Item from './Item';
@@ -20,6 +20,7 @@ function UserMenu() {
     removeToken();
     dispatch(logout());
   };
+  const { is_admin } = useSelector((state) => state?.auth?.user);
 
   return (
     <Box
@@ -29,12 +30,8 @@ function UserMenu() {
       }}
     >
       <MenuList>
-        <Item
-          url='/admin'
-          text={'Admin'}
-          icon={<FaUserAlt />}
-          activeUrls={adminUrls}
-        />
+        {is_admin && <Item url='/admin' text={'Admin'} icon={<FaUserAlt />}   activeUrls={adminUrls} /> }
+
         <Help />
         <Item
           onClick={logoutHandler}

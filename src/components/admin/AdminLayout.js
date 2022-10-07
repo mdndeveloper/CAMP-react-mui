@@ -1,9 +1,14 @@
 import { Divider, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 
 const AdminLayout = ({ children }) => {
+  const { is_admin } = useSelector((state) => state?.auth?.user);
+
+  if (!is_admin) return <Navigate to='/messages' />;
+
   return (
     <>
       <Typography
