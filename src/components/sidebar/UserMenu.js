@@ -9,6 +9,11 @@ import { logout } from '../../features/login/authSlice';
 import { removeToken } from '../../utils/token';
 import Item from './Item';
 
+const adminUrls = [
+  '/admin/locations',
+  '/admin/default-messages',
+  '/admin/default-images',
+];
 function UserMenu() {
   const dispatch = useDispatch();
   const logoutHandler = () => {
@@ -24,7 +29,12 @@ function UserMenu() {
       }}
     >
       <MenuList>
-        <Item url='/admin' text={'Admin'} icon={<FaUserAlt />} />
+        <Item
+          url='/admin'
+          text={'Admin'}
+          icon={<FaUserAlt />}
+          activeUrls={adminUrls}
+        />
         <Help />
         <Item
           onClick={logoutHandler}

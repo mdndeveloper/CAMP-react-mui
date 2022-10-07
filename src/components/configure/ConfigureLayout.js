@@ -50,11 +50,14 @@ const LinkItem = ({ url, text }) => {
         display: 'block',
         textDecoration: 'none',
         color: pathname === url ? '#81b1d9' : '#4f4f4f',
-        fontSize: '20px',
+        fontSize: '19px',
         transition: 'all 0.5s',
         '&:hover': {
           color: '#81b1d9',
         },
+        borderBottom: pathname === url ? '2px solid #81b1d9' : 0,
+        pb: '5px',
+        fontWeight: 500,
       }}
       to={url}
     >

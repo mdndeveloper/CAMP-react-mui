@@ -15,7 +15,7 @@ const AdminLayout = ({ children }) => {
       </Typography>
       <Divider />
 
-      <Box as='div' sx={{ mt: '15px', pb: '5px' }}>
+      <Box as='div' sx={{ mt: '15px', pb: '0px' }}>
         <Stack direction={{ xs: 'column', sm: 'row' }} gap={'15px'}>
           <LinkItem text='Locations' url='/admin/locations' />
           <LinkItem text='Default Messages' url='/admin/default-messages' />
@@ -38,10 +38,13 @@ const LinkItem = ({ url, text }) => {
         textDecoration: 'none',
         color: pathname === url ? '#81b1d9' : '#4f4f4f',
         fontSize: '20px',
+        fontWeight: 600,
         transition: 'all 0.5s',
         '&:hover': {
           color: '#81b1d9',
         },
+        borderBottom: pathname === url ? '2px solid #81b1d9' : 0,
+        pb: '5px',
       }}
       to={url}
     >

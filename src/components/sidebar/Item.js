@@ -1,19 +1,28 @@
 import { ListItemIcon, Typography } from '@mui/material';
 import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-const Item = ({ text, icon, url = '', ...rest }) => {
+import React, { useMemo } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+const Item = ({ text, icon, url = '', activeUrls = [], ...rest }) => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const isActive = useMemo(() => {
+    return activeUrls.includes(pathname);
+  }, [activeUrls, pathname]);
+
   const handler = () => {
     navigate(url);
   };
   return (
-    <MenuItem onClick={handler} {...rest}>
+    <MenuItem
+      onClick={handler}
+      {...rest}
+      sx={{ my: '4px', bgcolor: isActive ? 'rgb(0,0,0,0.1)' : '' }}
+    >
       <ListItemIcon
         sx={{
           mr: '10px',
-          fontSize: { xs: '33px', sm: '30', md: '29px' },
+          fontSize: '27px',
           color: '#fff',
         }}
       >
@@ -27,7 +36,7 @@ const Item = ({ text, icon, url = '', ...rest }) => {
           },
         }}
       >
-        <Typography sx={{ fontSize: '25px', color: '#fff' }}>{text}</Typography>
+        <Typography sx={{ fontSize: '23px', color: '#fff' }}>{text}</Typography>
       </ListItemText>
     </MenuItem>
   );
