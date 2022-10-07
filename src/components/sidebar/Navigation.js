@@ -4,6 +4,14 @@ import React from 'react';
 import { FaBookOpen, FaRegBell, FaRegCalendarAlt } from 'react-icons/fa';
 import Item from './Item';
 
+const configureUrl = [
+  '/configure/messages-sounds',
+  '/configure/slide-show',
+  '/configure/streams',
+  '/configure/marketplace',
+  '/configure/displays',
+];
+
 function Navigation() {
   return (
     <Box
@@ -13,9 +21,24 @@ function Navigation() {
       }}
     >
       <MenuList>
-        <Item url='/messages' text={'Messages'} icon={<FaRegBell />} />
-        <Item url='/schedule' text={'Schedule'} icon={<FaRegCalendarAlt />} />
-        <Item url='/configure' text={'Configure'} icon={<FaBookOpen />} />
+        <Item
+          url='/messages'
+          text={'Messages'}
+          icon={<FaRegBell />}
+          activeUrls={['/messages']}
+        />
+        <Item
+          url='/schedule'
+          text={'Schedule'}
+          icon={<FaRegCalendarAlt />}
+          activeUrls={['/schedule']}
+        />
+        <Item
+          url='/configure'
+          text={'Configure'}
+          icon={<FaBookOpen />}
+          activeUrls={configureUrl}
+        />
       </MenuList>
     </Box>
   );

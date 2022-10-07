@@ -11,9 +11,7 @@ const SideBar = ({ elementHeight }) => {
         pt: '20px',
         background: '#557993',
         height: height - 90,
-        px: {
-          md: '40px',
-        },
+
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
