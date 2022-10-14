@@ -1,6 +1,7 @@
-import { Box, Divider, Paper, Typography } from '@mui/material';
+import { Box, Divider, Typography } from '@mui/material';
 import React from 'react';
-import MessageForm from '../components/messages/MessageForm';
+import Library from '../components/messages/Library';
+import Send from '../components/messages/Send';
 
 const Messages = () => {
   return (
@@ -15,39 +16,8 @@ const Messages = () => {
         </Typography>
 
         <Divider />
-        <Box
-          as={Paper}
-          sx={{
-            boxSizing: 'border-box',
-            px: '10px',
-            borderRadius: '10px',
-            mt: '30px',
-          }}
-        >
-          <Box
-            sx={{
-              py: '15px',
-              pl: '10px',
-              width: {
-                xs: '95%',
-                sm: '40%',
-              },
-              borderTop: '3px solid #6087d4',
-            }}
-          >
-            <Typography
-              variant='body1'
-              sx={{ textTransform: 'uppercase' }}
-              component={'h2'}
-            >
-              Send a PUPDATE
-            </Typography>
-          </Box>
-          <Divider />
-          <div>
-            <MessageForm />
-          </div>
-        </Box>
+        <Send />
+        <Library />
       </Box>
     </div>
   );

@@ -1,4 +1,3 @@
-import { LoadingButton } from '@mui/lab';
 // import { Typography } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
@@ -9,12 +8,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import moment from 'moment';
 import * as React from 'react';
-import { useState } from 'react';
 
-export default function ResponsiveDatePickers() {
-  const [from, setFrom] = React.useState(moment());
-  const [to, setTo] = React.useState(moment());
-  const [isLoading, setIsLoading] = useState(false);
+export default function FilterDates(props) {
+  const { children, from, setFrom, to, setTo } = props;
 
   return (
     <Box as='div' sx={{ my: '10px' }}>
@@ -74,21 +70,7 @@ export default function ResponsiveDatePickers() {
               />
             </Box>
           </div>
-          <div>
-            <LoadingButton
-              loading={isLoading}
-              variant='contained'
-              sx={{ background: '#6087d4', width: { xs: '100%', sm: '150px' } }}
-              onClick={() => {
-                setIsLoading(true);
-                setTimeout(() => {
-                  setIsLoading(false);
-                }, 1000 * 2);
-              }}
-            >
-              Export CSV
-            </LoadingButton>
-          </div>
+          {children}
         </Stack>
       </LocalizationProvider>
     </Box>
