@@ -1,0 +1,117 @@
+[
+  {
+    "id": 1,
+    "value": "3beeps",
+    "label": "3beeps"
+  },
+  {
+    "id": 2,
+    "value": "Bugle",
+    "label": "Bugle"
+  },
+  {
+    "id": 3,
+    "value": "CartoonAccent",
+    "label": "CartoonAccent"
+  },
+  {
+    "id": 4,
+    "value": "Check In",
+    "label": "Check In"
+  },
+  {
+    "id": 5,
+    "value": "Check Out",
+    "label": "Check Out"
+  },
+  {
+    "id": 6,
+    "value": "Corporate Notification Sound",
+    "label": "Corporate Notification Sound"
+  },
+  {
+    "id": 7,
+    "value": "CrowdCheering",
+    "label": "CrowdCheering"
+  },
+  {
+    "id": 8,
+    "value": "Game Upgrade",
+    "label": "Game Upgrade"
+  },
+  {
+    "id": 9,
+    "value": "General Message",
+    "label": "General Message"
+  },
+  {
+    "id": 10,
+    "value": "Happy Win Game",
+    "label": "Happy Win Game"
+  },
+  {
+    "id": 11,
+    "value": "Jubilant Fanfare",
+    "label": "Jubilant Fanfare"
+  },
+  {
+    "id": 12,
+    "value": "JubilantFanfare",
+    "label": "JubilantFanfare"
+  },
+  {
+    "id": 13,
+    "value": "OrganFanfare",
+    "label": "OrganFanfare"
+  },
+  {
+    "id": 14,
+    "value": "OrganMusic",
+    "label": "OrganMusic"
+  },
+  {
+    "id": 15,
+    "value": "Rock &amp; Roll Prize",
+    "label": "Rock &amp; Roll Prize"
+  },
+  {
+    "id": 16,
+    "value": "Scheduled",
+    "label": "Scheduled"
+  },
+  {
+    "id": 17,
+    "value": "The Rock n Roll Logo",
+    "label": "The Rock n Roll Logo"
+  },
+  {
+    "id": 18,
+    "value": "Trumpet Charge Military Bugle",
+    "label": "Trumpet Charge Military Bugle"
+  },
+  {
+    "id": 19,
+    "value": "TrumpetComedy",
+    "label": "TrumpetComedy"
+  },
+  {
+    "id": 20,
+    "value": "TrumpetMusic",
+    "label": "TrumpetMusic"
+  },
+  {
+    "id": 21,
+    "value": "Victory Fanfare",
+    "label": "Victory Fanfare"
+  },
+  {
+    "id": 22,
+    "value": "winsound",
+    "label": "winsound"
+  },
+  {
+    "id": 23,
+    "value": "winsound_bkp",
+    "label": "winsound_bkp"
+  }
+]
