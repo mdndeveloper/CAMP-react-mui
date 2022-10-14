@@ -1,48 +1,42 @@
 import { LoadingButton } from '@mui/lab';
 import { Box, TextField } from '@mui/material';
 import { Stack } from '@mui/system';
-import React, { useEffect, useMemo } from 'react';
-import { useForm } from 'react-hook-form';
-import {
-  useGetConfigQuery,
-  useUpdateConfigMutation,
-} from '../../../../features/userConfig/userConfigApiSlice';
-import { getAuthUserId } from '../../../../utils/auth';
+import React, { useEffect } from 'react';
 import Card from '../../Card';
-import SelectSound from '../SelectSound';
-const InterView = () => {
-  const { data, isSuccess } = useGetConfigQuery(getAuthUserId());
-  const [updateConfig, { isLoading }] = useUpdateConfigMutation();
 
-  const duration = useMemo(() => {
-    if (!isSuccess) return 0;
-    return data[0].defaultDuration;
-  }, [isSuccess, data]);
+import moment from 'moment';
+import { useForm } from 'react-hook-form';
+import { useAddElementMutation } from '../../../../features/userElement/userElementApiSlice';
+import { getAuthUserId } from '../../../../utils/auth';
+import ListTable from './List';
+
+const QuickSend = () => {
+  const [addElement, { isLoading, isSuccess }] = useAddElementMutation();
 
   const {
     register,
-    setValue,
     formState: { errors },
-    watch,
     handleSubmit,
-  } = useForm({
-    interviewMessage: '',
-    interviewSound: '',
-  });
+    reset,
+  } = useForm();
 
   useEffect(() => {
     if (isSuccess) {
-      setValue('interviewMessage', data[0].interviewMessage);
-      setValue('interviewSound', data[0].interviewSound);
+      reset();
     }
-  }, [isSuccess, data, setValue]);
+  }, [reset, isSuccess]);
 
   const submitHandler = (values) => {
-    updateConfig({ id: data[0].id, data: values });
+    addElement({
+      userId: getAuthUserId(),
+      type: 'interview',
+      ...values,
+      deletedAt: moment(),
+    });
   };
   return (
     <form onSubmit={handleSubmit(submitHandler)}>
-      <Card title={'Interview'} color='#9b55d6'>
+      <Card title={'Interview'} color='#6087d4'>
         <Stack
           direction={{ xs: 'column', sm: 'row' }}
           gap={4}
@@ -54,51 +48,18 @@ const InterView = () => {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                label='Create Interview Yard'
+                label='Create Interview'
                 variant='outlined'
                 fullWidth
-                rows={4}
-                multiline
-                {...register('interviewMessage', {
+                {...register('displayName', {
                   required: 'This field is required!',
                 })}
-                onChange={() => {}}
-                error={!!errors.interviewMessage}
-                helperText={errors?.interviewMessage?.message || ''}
+                error={!!errors.displayName}
+                helperText={errors?.displayName?.message || ''}
               />
             </Box>
           </div>
-          <div>
-            <Box
-              sx={{
-                flex: 1,
-                width: {
-                  xs: '95%',
-                  md: '200px',
-                },
-              }}
-            >
-              <SelectSound
-                value={watch('interviewSound')}
-                setValue={(v) => setValue('interviewSound', v)}
-              />
-            </Box>
-          </div>
-          <div>
-            <Box sx={{ flex: 1 }}>
-              <TextField
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                type='number'
-                label='Duration (sec)'
-                variant='outlined'
-                placeholder={'input here'}
-                fullWidth
-                value={duration}
-              />
-            </Box>
-          </div>
+
           <div>
             <LoadingButton
               loading={isLoading}
@@ -106,13 +67,15 @@ const InterView = () => {
               type='submit'
               //   sx={{ background: '#82da73' }}
             >
-              Save
+              Add
             </LoadingButton>
           </div>
         </Stack>
+
+        <ListTable />
       </Card>
     </form>
   );
 };
 
-export default InterView;
+export default QuickSend;
