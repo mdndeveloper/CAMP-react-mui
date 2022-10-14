@@ -59,7 +59,7 @@ const ConfigureRedirect = () => {
   return <Navigate to={'/configure/messages-sounds'} />;
 };
 const AdminRedirect = () => {
-  return <Navigate to={'/admin/default-images'} />;
+  return <Navigate to={'/admin/locations'} />;
 };
 
 export default App;
