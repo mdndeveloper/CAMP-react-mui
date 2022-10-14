@@ -54,18 +54,14 @@ export default function Table() {
 
   const dispatch = useDispatch();
 
-  const {
-    data: messages,
-    isLoading,
-    error,
-  } = useSelector((state) => state.messages);
+  const { data: messages } = useSelector((state) => state.messages);
 
   const scheduleMessages = useMemo(() => {
     // return whatever data you want from redux state
     if (messages.length <= 0) return [];
 
     return messages.reduce((acc, cur) => {
-      const condition = moment().isBefore(cur.dateTime, 'day');
+      const condition = moment().isBefore(cur.dateTime, 'second');
       if (condition) {
         acc.push({ ...cur, dispatch });
       }
