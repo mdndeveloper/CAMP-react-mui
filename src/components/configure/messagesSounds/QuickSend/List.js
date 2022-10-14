@@ -2,9 +2,10 @@ import { Box, Stack } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useMemo, useState } from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
-import { deleteStreamAsync } from '../../../../features/stream/thunks';
-import { useGetElementsQuery } from '../../../../features/userElement/userElementApiSlice';
+import {
+  useDeleteElementMutation,
+  useGetElementsQuery,
+} from '../../../../features/userElement/userElementApiSlice';
 
 const columns = [
   { field: 'displayName', headerName: 'Message', flex: 1 },
@@ -15,8 +16,7 @@ const columns = [
     sortable: false,
     renderCell: ({ row }) => {
       const removeHandler = () => {
-        console.log('first');
-        row.dispatch(deleteStreamAsync(row.id));
+        row.deleteElement(row.id);
       };
 
       return (
@@ -45,20 +45,19 @@ const columns = [
 export default function ListTable() {
   const [itemPerPage, setItemPerPage] = useState(5);
 
-  const dispatch = useDispatch();
-
   const { data, isSuccess } = useGetElementsQuery();
+  const [deleteElement] = useDeleteElementMutation();
 
   const messages = useMemo(() => {
     if (!isSuccess) return [];
     return data.reduce((acc, cur) => {
       acc.push({
         ...cur,
-        dispatch,
+        deleteElement,
       });
       return acc;
     }, []);
-  }, [data, dispatch, isSuccess]);
+  }, [data, isSuccess, deleteElement]);
 
   return (
     <Box sx={{}}>
