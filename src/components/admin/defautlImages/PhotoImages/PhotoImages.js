@@ -1,7 +1,8 @@
 import { Box } from '@mui/material';
 import { Stack } from '@mui/system';
-import React, { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSlideShowAsync } from '../../../../features/slideShow/thunks';
 import Card from '../../Card';
 import Add from './Add';
 import Item from './Item';
@@ -10,6 +11,11 @@ const PHOTOS_BASE_URL =
 
 const PhotoImages = () => {
   const { photos } = useSelector((state) => state.slide);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchSlideShowAsync());
+  }, [dispatch]);
 
   const formatePhotos = useMemo(() => {
     if (photos.length === 0) return [];
