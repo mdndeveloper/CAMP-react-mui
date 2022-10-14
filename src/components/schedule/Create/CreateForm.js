@@ -14,6 +14,7 @@ import {
 } from '../../../features/message/thunks';
 import { getAuthUserId } from '../../../utils/auth';
 import DaysSelect from './DaysSelect';
+import SelectMessage from './SelectMessage';
 const today = new Date();
 
 const CreateForm = () => {
@@ -83,21 +84,28 @@ const CreateForm = () => {
       <Grid container>
         <Grid xs={12} md={4} sx={{ order: 1 }}>
           <Box sx={{ mr: { md: '10px' } }}>
-            <TextField
-              placeholder='Automated Messages:'
-              multiline
-              label='Message'
-              rows={7}
-              size='small'
-              fullWidth
-              {...register('message', {
-                required: 'This field is required!',
-                maxLength: {
-                  value: 90,
-                  message: 'Maximum 90 characters allowed!',
-                },
-              })}
-            />
+            {editMode ? (
+              <TextField
+                placeholder='Automated Messages:'
+                multiline
+                label='Message'
+                rows={7}
+                size='small'
+                fullWidth
+                {...register('message', {
+                  required: 'This field is required!',
+                  maxLength: {
+                    value: 90,
+                    message: 'Maximum 90 characters allowed!',
+                  },
+                })}
+              />
+            ) : (
+              <SelectMessage
+                value={watch('message')}
+                setValue={(v) => setValue('message', v)}
+              />
+            )}
 
             <Stack
               direction='row'
@@ -108,8 +116,7 @@ const CreateForm = () => {
                   {errors.message.message}
                 </FormHelperText>
               )}
-
-              {watch('message')?.length <= 90 && (
+              {editMode && watch('message')?.length <= 90 && (
                 <Box>
                   <FormHelperText sx={{ color: 'red' }}>
                     {90 - watch('message').length} characters left
