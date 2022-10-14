@@ -3,10 +3,15 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import React from 'react';
-import { useGetElementsQuery } from '../../../features/userElement/userElementApiSlice';
+import SOUNDS from './soundData.json';
 
-export default function QuickSend({ value, setValue }) {
-  const { data, isSuccess } = useGetElementsQuery();
+export default function SelectSound({ value = '3beeps', setValue }) {
+  const data = SOUNDS;
+
+  const handleChange = (event) => {
+    const dataValue = event.target.value;
+    setValue(dataValue);
+  };
 
   return (
     <div>
@@ -16,14 +21,13 @@ export default function QuickSend({ value, setValue }) {
           labelId='demo-multiple-chip-label'
           id='demo-multiple-chip'
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={handleChange}
         >
-          {isSuccess &&
-            data.map((item) => (
-              <MenuItem key={item.id} value={item.displayName}>
-                {item.displayName}
-              </MenuItem>
-            ))}
+          {data.map((item) => (
+            <MenuItem key={item.id} value={item.value}>
+              {item.label}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
     </div>
