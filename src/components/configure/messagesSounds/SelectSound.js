@@ -3,7 +3,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import React from 'react';
-import SOUNDS from '../soundData.json';
+import SOUNDS from './soundData.json';
 
 export default function SelectSound({ value = '3beeps', setValue }) {
   const data = SOUNDS;

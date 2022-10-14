@@ -1,11 +1,47 @@
+import { LoadingButton } from '@mui/lab';
 import { Box, TextField } from '@mui/material';
 import { Stack } from '@mui/system';
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
+import { useForm } from 'react-hook-form';
+import {
+  useGetConfigQuery,
+  useUpdateConfigMutation,
+} from '../../../../features/userConfig/userConfigApiSlice';
+import { getAuthUserId } from '../../../../utils/auth';
 import Card from '../../Card';
-import SelectSound from './SelectSound';
+import SelectSound from '../SelectSound';
 const CheckOut = () => {
+  const { data, isSuccess } = useGetConfigQuery(getAuthUserId());
+  const [updateConfig, { isLoading }] = useUpdateConfigMutation();
+
+  const duration = useMemo(() => {
+    if (!isSuccess) return 0;
+    return data[0].defaultDuration;
+  }, [isSuccess, data]);
+
+  const {
+    register,
+    setValue,
+    formState: { errors },
+    watch,
+    handleSubmit,
+  } = useForm({
+    checkOutMessage: '',
+    checkOutSound: '',
+  });
+
+  useEffect(() => {
+    if (isSuccess) {
+      setValue('checkOutMessage', data[0].checkOutMessage);
+      setValue('checkOutSound', data[0].checkOutSound);
+    }
+  }, [isSuccess, data, setValue]);
+
+  const submitHandler = (values) => {
+    updateConfig({ id: data[0].id, data: values });
+  };
   return (
-    <div>
+    <form onSubmit={handleSubmit(submitHandler)}>
       <Card title={'Check Out'} color='#f46969'>
         <Stack
           direction={{ xs: 'column', sm: 'row' }}
@@ -23,12 +59,21 @@ const CheckOut = () => {
                 placeholder='Input here'
                 defaultValue={'- is here to play'}
                 fullWidth
+                {...register('checkOutMessage', {
+                  required: 'This field is required!',
+                })}
+                onChange={() => {}}
+                error={!!errors.checkOutMessage}
+                helperText={errors?.checkOutMessage?.message || ''}
               />
             </Box>
           </div>
           <div>
             <Box sx={{ flex: 1, width: { xs: '100%', sm: '200px' } }}>
-              <SelectSound />
+              <SelectSound
+                value={watch('checkOutSound')}
+                setValue={(v) => setValue('checkOutSound', v)}
+              />
             </Box>
           </div>
           <div>
@@ -42,14 +87,24 @@ const CheckOut = () => {
                 variant='outlined'
                 placeholder={'input here'}
                 defaultValue={90}
-                value={90}
                 fullWidth
+                value={duration}
               />
             </Box>
           </div>
+          <div>
+            <LoadingButton
+              loading={isLoading}
+              variant='contained'
+              type='submit'
+              //   sx={{ background: '#82da73' }}
+            >
+              Save
+            </LoadingButton>
+          </div>
         </Stack>
       </Card>
-    </div>
+    </form>
   );
 };
 

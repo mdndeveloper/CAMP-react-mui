@@ -9,7 +9,7 @@ import {
 } from '../../../../features/userConfig/userConfigApiSlice';
 import { getAuthUserId } from '../../../../utils/auth';
 import Card from '../../Card';
-import SelectSound from './SelectSound';
+import SelectSound from '../SelectSound';
 const CheckIn = () => {
   const { data, isSuccess } = useGetConfigQuery(getAuthUserId());
   const [updateConfig, { isLoading }] = useUpdateConfigMutation();

@@ -23,12 +23,11 @@ const QuickSendArea = () => {
   const quickSendHandler = () => {
     if (!value || messages.length === 0) return;
     setLoading(true);
-    const { message, duration } = messages?.find((m) => m.id === value);
 
     const dataObj = {
       userId: getAuthUserId(),
-      message,
-      duration,
+      message: value,
+      duration: 0,
       dateTime: moment(),
       days: 0,
       lastSent: moment(),

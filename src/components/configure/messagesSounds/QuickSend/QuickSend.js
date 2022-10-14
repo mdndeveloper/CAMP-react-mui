@@ -1,11 +1,41 @@
+import { LoadingButton } from '@mui/lab';
 import { Box, TextField } from '@mui/material';
 import { Stack } from '@mui/system';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Card from '../../Card';
-import SelectSound from './SelectSound';
+
+import moment from 'moment';
+import { useForm } from 'react-hook-form';
+import { useAddElementMutation } from '../../../../features/userElement/userElementApiSlice';
+import { getAuthUserId } from '../../../../utils/auth';
+import ListTable from './List';
+
 const QuickSend = () => {
+  const [addElement, { isLoading, isSuccess }] = useAddElementMutation();
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useForm();
+
+  useEffect(() => {
+    if (isSuccess) {
+      reset();
+    }
+  }, [reset, isSuccess]);
+
+  const submitHandler = (values) => {
+    addElement({
+      userId: getAuthUserId(),
+      type: '',
+      ...values,
+      deletedAt: moment(),
+    });
+  };
   return (
-    <div>
+    <form onSubmit={handleSubmit(submitHandler)}>
       <Card title={'Quick Send'} color='#6087d4'>
         <Stack
           direction={{ xs: 'column', sm: 'row' }}
@@ -21,35 +51,30 @@ const QuickSend = () => {
                 label='Create Quick Send'
                 variant='outlined'
                 fullWidth
-                multiline
-                rows={4}
+                {...register('displayName', {
+                  required: 'This field is required!',
+                })}
+                error={!!errors.displayName}
+                helperText={errors?.displayName?.message || ''}
               />
             </Box>
           </div>
+
           <div>
-            <Box sx={{ flex: 1, width: { xs: '100%', sm: '200px' } }}>
-              <SelectSound />
-            </Box>
-          </div>
-          <div>
-            <Box sx={{ flex: 1 }}>
-              <TextField
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                type='number'
-                label='Duration (sec)'
-                variant='outlined'
-                placeholder={'input here'}
-                defaultValue={90}
-                value={90}
-                fullWidth
-              />
-            </Box>
+            <LoadingButton
+              loading={isLoading}
+              variant='contained'
+              type='submit'
+              //   sx={{ background: '#82da73' }}
+            >
+              Add
+            </LoadingButton>
           </div>
         </Stack>
+
+        <ListTable />
       </Card>
-    </div>
+    </form>
   );
 };
 

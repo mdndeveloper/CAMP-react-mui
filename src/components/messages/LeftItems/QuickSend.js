@@ -3,15 +3,10 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useGetElementsQuery } from '../../../features/userElement/userElementApiSlice';
 
 export default function QuickSend({ value, setValue }) {
-  const { data } = useSelector((state) => state.messages);
-
-  const handleChange = (event) => {
-    const dataValue = event.target.value;
-    setValue(dataValue);
-  };
+  const { data, isSuccess } = useGetElementsQuery();
 
   return (
     <div>
@@ -21,13 +16,14 @@ export default function QuickSend({ value, setValue }) {
           labelId='demo-multiple-chip-label'
           id='demo-multiple-chip'
           value={value}
-          onChange={handleChange}
+          onChange={(e) => setValue(e.target.value)}
         >
-          {data.map((item) => (
-            <MenuItem key={item.id} value={item.id}>
-              {item.message}
-            </MenuItem>
-          ))}
+          {isSuccess &&
+            data.map((item) => (
+              <MenuItem key={item.id} value={item.displayName}>
+                {item.displayName}
+              </MenuItem>
+            ))}
         </Select>
       </FormControl>
     </div>
