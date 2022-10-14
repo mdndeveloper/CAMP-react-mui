@@ -1,7 +1,7 @@
 import { Box, Stack } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import moment from 'moment';
-import * as React from 'react';
+import React, { useMemo } from 'react';
 import { FaPen, FaTrashAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { activeEditMode } from '../../../../features/message/messageSlice';
@@ -54,13 +54,9 @@ export default function Table() {
 
   const dispatch = useDispatch();
 
-  const {
-    data: messages,
-    isLoading,
-    error,
-  } = useSelector((state) => state.messages);
+  const { data: messages } = useSelector((state) => state.messages);
 
-  const messageFormate = React.useMemo(() => {
+  const messageFormate = useMemo(() => {
     if (messages.length === 0) return [];
     return messages.reduce((acc, cur) => {
       acc.push({ ...cur, dispatch });
