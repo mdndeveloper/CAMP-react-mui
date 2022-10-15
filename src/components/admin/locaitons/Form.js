@@ -1,4 +1,4 @@
-import { Button, Grid, TextField } from '@mui/material';
+import { Grid, TextField } from '@mui/material';
 import { Box, Stack } from '@mui/system';
 import React from 'react';
 
@@ -21,11 +21,6 @@ const Form = ({ search, setSearch }) => {
                 onChange={(e) => setSearch(e.target.value)}
               />
             </Box>
-            <div>
-              <Button variant='contained' sx={{ background: '#82da73' }}>
-                Go
-              </Button>
-            </div>
           </Stack>
         </Grid>
       </Grid>

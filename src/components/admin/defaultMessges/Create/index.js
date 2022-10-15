@@ -1,8 +1,10 @@
 import { Box, Button, Divider, Paper, Stack, Typography } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import CreateForm from './CreateForm';
+import SuggestedModal from './SuggestedModal';
 
 const Create = () => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <Box
       as={Paper}
@@ -47,6 +49,7 @@ const Create = () => {
           color={'secondary'}
           variant='outlined'
           size='small'
+          onClick={() => setIsOpen(true)}
         >
           Create
         </Button>
@@ -55,6 +58,7 @@ const Create = () => {
       <Box sx={{ minHeight: '300px', boxSizing: 'border-box', p: '10px' }}>
         <CreateForm />
       </Box>
+      <SuggestedModal open={isOpen} setIsOpen={setIsOpen} />
     </Box>
   );
 };

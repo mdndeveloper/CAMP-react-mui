@@ -1,7 +1,14 @@
 import { Box } from '@mui/material';
 import MenuList from '@mui/material/MenuList';
 import React from 'react';
-import { FaBookOpen, FaRegBell, FaRegCalendarAlt } from 'react-icons/fa';
+import {
+  FaBookOpen,
+  FaCamera,
+  FaCameraRetro,
+  FaRegBell,
+  FaRegCalendarAlt,
+} from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 import Item from './Item';
 
 const configureUrl = [
@@ -13,6 +20,7 @@ const configureUrl = [
 ];
 
 function Navigation() {
+  const { is_admin } = useSelector((state) => state?.auth?.user);
   return (
     <Box
       sx={{
@@ -39,6 +47,22 @@ function Navigation() {
           icon={<FaBookOpen />}
           activeUrls={configureUrl}
         />
+        {!is_admin && (
+          <>
+            <Item
+              url='/cameras'
+              text={'Back Display'}
+              icon={<FaCameraRetro />}
+              activeUrls={['/cameras']}
+            />
+            <Item
+              url='/camera'
+              text={'Lobby Display'}
+              icon={<FaCamera />}
+              activeUrls={['/camera']}
+            />
+          </>
+        )}
       </MenuList>
     </Box>
   );

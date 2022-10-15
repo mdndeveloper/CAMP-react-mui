@@ -212,7 +212,7 @@ const CameraAddModal = ({ open, setOpen }) => {
             {/* submit button */}
             <Box sx={styles.submitButton}>
               <Button variant='contained' type='submit'>
-                Add Cam
+                Add User
               </Button>
               <Button
                 onClick={() => setOpen(false, reset)}

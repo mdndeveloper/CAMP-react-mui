@@ -84,7 +84,7 @@ const CamsTable = ({ data }) => {
                 cursor: 'pointer',
               }}
               color='error'
-              onClick={() => deleteUser(id)}
+              onClick={() => alert('What i need to do?')}
             >
               <EastOutlinedIcon />
             </Box>
