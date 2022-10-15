@@ -2,11 +2,21 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useGetElementsQuery } from '../../../features/userElement/userElementApiSlice';
 
-export default function SelectSound({ value = '3beeps', setValue }) {
-  const data = [];
+export default function SelectSound({ value, setValue }) {
+  const { data, isSuccess } = useGetElementsQuery();
 
+  const messages = useMemo(() => {
+    if (!isSuccess) return [];
+    return data.reduce((acc, cur) => {
+      if (cur.type === 'interview') {
+        acc.push(cur);
+      }
+      return acc;
+    }, []);
+  }, [data, isSuccess]);
   const handleChange = (event) => {
     const dataValue = event.target.value;
     setValue(dataValue);
@@ -22,9 +32,9 @@ export default function SelectSound({ value = '3beeps', setValue }) {
           value={value}
           onChange={handleChange}
         >
-          {data.map((item) => (
-            <MenuItem key={item.id} value={item.value}>
-              {item.label}
+          {messages.map((item) => (
+            <MenuItem key={item.id} value={item.displayName}>
+              {item.displayName}
             </MenuItem>
           ))}
         </Select>

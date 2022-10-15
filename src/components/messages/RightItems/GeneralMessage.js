@@ -22,7 +22,7 @@ const Item = () => {
       dateTime: moment(),
       days: 0,
       duration: 0,
-      lastSent: moment(),
+      lastSent: null,
       type: '',
       category: 'general',
     };

@@ -23,7 +23,7 @@ const Item = ({ type, text, buttons }) => {
       dateTime: moment(),
       days: 0,
       duration: 0,
-      lastSent: moment(),
+      lastSent: null,
       type: '',
       category: type,
     };

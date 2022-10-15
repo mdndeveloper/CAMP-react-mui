@@ -29,7 +29,7 @@ const QuickSend = () => {
   const submitHandler = (values) => {
     addElement({
       userId: getAuthUserId(),
-      type: '',
+      type: 'quick-send',
       ...values,
       deletedAt: moment(),
     });

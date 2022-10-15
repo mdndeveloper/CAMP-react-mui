@@ -51,7 +51,7 @@ export default function ListTable() {
   const messages = useMemo(() => {
     if (!isSuccess) return [];
     return data.reduce((acc, cur) => {
-      if (cur.type === 'quick-send') {
+      if (cur.type === 'interview') {
         acc.push({
           ...cur,
           deleteElement,

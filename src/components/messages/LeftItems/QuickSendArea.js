@@ -30,7 +30,7 @@ const QuickSendArea = () => {
       duration: 0,
       dateTime: moment(),
       days: 0,
-      lastSent: moment(),
+      lastSent: null,
       type: '',
       category: 'quicksend',
     };
