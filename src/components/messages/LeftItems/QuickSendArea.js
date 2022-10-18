@@ -52,7 +52,7 @@ const QuickSendArea = () => {
             loading={isLoading3}
             onClick={quickSendHandler}
             variant='contained'
-            sx={{ background: '#6087d4' }}
+            sx={{ background: '#fc74da' }}
           >
             Send
           </LoadingButton>

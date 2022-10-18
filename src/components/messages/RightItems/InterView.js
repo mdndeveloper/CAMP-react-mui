@@ -5,6 +5,7 @@ import moment from 'moment';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessageAsync } from '../../../features/message/thunks';
+import { useGetConfigQuery } from '../../../features/userConfig/userConfigApiSlice';
 import { getAuthUserId } from '../../../utils/auth';
 import CampArea from './CampArea';
 
@@ -13,21 +14,24 @@ const InterView = () => {
   const [message, setMessage] = useState('');
   const [select, setSelect] = useState('');
   const { isLoading } = useSelector((state) => state.messages);
-
+  const { data: config, isSuccess } = useGetConfigQuery(getAuthUserId());
   const dispatch = useDispatch();
 
   const sendHandler = () => {
-    if (!message) return;
+    if (!message || !isSuccess || !select) return;
+
     setLoading(true);
     const data = {
       userId: getAuthUserId(),
-      message: `${message} ${select ?? ''}`,
+      message: `${message} ${config[0].interviewMessage} ${
+        select ? select : ''
+      }`,
       dateTime: moment(),
       days: 0,
       duration: 0,
       lastSent: null,
       type: '',
-      category: 'general',
+      category: 'interview',
     };
     dispatch(addMessageAsync(data));
     setTimeout(() => {

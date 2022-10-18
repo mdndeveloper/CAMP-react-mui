@@ -16,9 +16,9 @@ export default function SelectSound({ value = '3beeps', setValue }) {
   return (
     <div>
       <FormControl sx={{ width: '100%' }}>
-        <InputLabel id='demo-multiple-chip-label'>Select Quick Send</InputLabel>
+        <InputLabel id='select-music-sound'>Select Music Sound</InputLabel>
         <Select
-          labelId='demo-multiple-chip-label'
+          labelId='select-music-sound'
           id='demo-multiple-chip'
           value={value}
           onChange={handleChange}

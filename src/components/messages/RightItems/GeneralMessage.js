@@ -41,7 +41,7 @@ const Item = () => {
             InputLabelProps={{
               shrink: true,
             }}
-            label='Pet Name'
+            label='General Message'
             variant='outlined'
             placeholder='Input here'
             multiline
@@ -57,7 +57,7 @@ const Item = () => {
             loading={loading}
             onClick={sendHandler}
             variant='contained'
-            sx={{ background: '#fc74da' }}
+            sx={{ background: '#6087d4' }}
           >
             Send
           </LoadingButton>
