@@ -41,7 +41,7 @@ const Item = ({ type, text, buttons }) => {
             InputLabelProps={{
               shrink: true,
             }}
-            label='Pet Name'
+            label='Camper Name'
             variant='outlined'
             placeholder='Input here'
             fullWidth

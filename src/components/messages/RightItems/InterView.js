@@ -48,7 +48,7 @@ const InterView = () => {
             InputLabelProps={{
               shrink: true,
             }}
-            label='Pet Name'
+            label='Camper Name'
             variant='outlined'
             placeholder='Input here'
             sx={{ width: '100%' }}
