@@ -5,7 +5,7 @@ import MenuList from '@mui/material/MenuList';
 import React from 'react';
 import { FaAngleRight, FaRegQuestionCircle, FaUserAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../features/login/authSlice';
+import { logout, removeProxyUser } from '../../features/login/authSlice';
 import { removeToken } from '../../utils/token';
 import Item from './Item';
 
@@ -21,6 +21,7 @@ function UserMenu() {
     dispatch(logout());
   };
   const { is_admin } = useSelector((state) => state?.auth?.user);
+  const { isProxy } = useSelector((state) => state?.auth?.proxy);
 
   return (
     <Box
@@ -30,7 +31,26 @@ function UserMenu() {
       }}
     >
       <MenuList>
-        {is_admin && <Item url='/admin' text={'Admin'} icon={<FaUserAlt />}   activeUrls={adminUrls} /> }
+        {is_admin && !isProxy && (
+          <Item
+            url='/admin'
+            text={'Admin'}
+            icon={<FaUserAlt />}
+            activeUrls={adminUrls}
+          />
+        )}
+        {is_admin && isProxy && (
+          <Item
+            // url='/admin'
+            text={'Return to admin'}
+            icon={<FaUserAlt />}
+            onClick={() => {
+              console.log('data');
+              dispatch(removeProxyUser());
+            }}
+            activeUrls={adminUrls}
+          />
+        )}
 
         <Help />
         <Item

@@ -5,8 +5,9 @@ import { Box, Stack } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { useDeleteUserMutation } from '../../../features/admin/userApiSlice';
-import { loginAsync } from '../../../features/login/thunks';
+import { setProxyUser } from '../../../features/login/authSlice';
 import CameraEditModal from './CameraEditModal/CameraEditModal';
 
 const CamsTable = ({ data }) => {
@@ -15,6 +16,7 @@ const CamsTable = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const [deleteUser] = useDeleteUserMutation();
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -55,14 +57,7 @@ const CamsTable = ({ data }) => {
       headerName: 'Action',
       width: 150,
       renderCell: (props) => {
-        const {
-          id,
-          deleteUser,
-          setIsOpen,
-          setSelectedItem,
-          username,
-          password,
-        } = props.row;
+        const { id, deleteUser, setIsOpen, setSelectedItem } = props.row;
 
         return (
           <Stack direction={'row'} spacing={1} className='flex gap-x-1'>
@@ -95,7 +90,10 @@ const CamsTable = ({ data }) => {
                 cursor: 'pointer',
               }}
               color='error'
-              onClick={() => dispatch(loginAsync({ username, password }))}
+              onClick={() => {
+                dispatch(setProxyUser(props.row));
+                navigate('/messages');
+              }}
             >
               <EastOutlinedIcon />
             </Box>
