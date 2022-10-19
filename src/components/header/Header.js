@@ -17,9 +17,18 @@ const Header = () => {
       <div className='container'>
         <Grid container alignItems={'center'}>
           <Grid md={3}>
-            <div>
-              <img src={logoImage} alt='' />
-            </div>
+            <Box as='div' sx={{ width: '300px', height: '90px' }}>
+              <Box
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
+                }}
+                as='img'
+                src={logoImage}
+                alt=''
+              />
+            </Box>
           </Grid>
           <Grid md={9}>
             <Box sx={{ display: 'flex', justifyContent: 'end' }}>
