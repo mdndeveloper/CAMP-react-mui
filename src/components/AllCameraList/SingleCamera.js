@@ -1,15 +1,31 @@
 import { Box } from '@mui/material';
 import React from 'react';
+const file = 'files/camsFront.html';
 
-const SingleCamera = ({ height, image }) => {
+const SingleCamera = ({ height, ipAddress }) => {
   return (
     <Box sx={{ height }}>
-      <Box sx={{ width: '100%', height: '100%' }}>
+      <Box
+        sx={{
+          width: '100%',
+          boxSizing: 'border-box',
+        }}
+        className=''
+        as='div'
+      >
         <Box
-          as='img'
-          src={image}
-          sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
-        />
+          sx={{
+            border: '1px solid #000',
+            height,
+          }}
+        >
+          <iframe
+            src={`${file}?${ipAddress}`}
+            title={ipAddress}
+            frameborder='0'
+            width='100%'
+          ></iframe>
+        </Box>
       </Box>
     </Box>
   );

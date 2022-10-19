@@ -1,0 +1,231 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<title>pbj TV Lobby Camera Module</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE10" />
+<meta http-equiv="Page-Enter" content="blendTrans(Duration=0.0)"/><!--Fixes IE Page 'Flicker' -->
+<meta http-equiv="Page-Exit" content="blendTrans(Duration=0.0)"/><!--Fixes IE Page 'Flicker' -->
+
+<script type="text/javascript"> 
+	var bWM = false;
+	var mediaWidth = 640;
+	var mediaHeight = 480;
+	var daysago = 0;
+	var urlRaw = window.location.href;
+	var info = urlRaw.split("?");
+	var urlReq = info[1].split("/");
+	var camName = urlReq[3];
+	var serverIP = urlReq[2];
+		
+    window.onload = function()
+	{
+		if(info[1] !== "blackout")
+		{
+			opencam();
+ 	        onWindowResize();
+		}
+    }
+    
+    window.onresize = function()
+    {
+		if(info[1] !== "blackout")
+		{
+        	onWindowResize();
+		}
+    }
+    
+	function getSession()
+	{
+		var i,x,y,ARRcookies=document.cookie.split(";");
+		for (i=0; i<ARRcookies.length; i++ )
+		{
+			x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+			y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+			x=x.replace(/^\s+|\s+$/g,"");
+			
+			if (x=="session")
+			{
+				return unescape(y);
+			}
+		}
+	}
+    
+    function openfile( dest, w, h )
+    {
+		box = document.getElementById('CamList');		
+		box.selectedIndex = -1;
+
+		bWM = false;				
+		document.MediaPlayer.URL = "";
+		
+		mediaWidth = w;
+		mediaHeight = h;
+		
+		try
+		{
+//			document.LiveVideo.bHideUI = false;
+			document.LiveVideo.changeURL( dest  + ";0;"+ getSession() );
+		}
+		catch(er)
+		{
+			if( typeof( window.innerWidth ) == 'number' )
+			{
+				//Non-IE
+				alert( "Please use the JAVA page for this browser.");
+			}
+			else
+			{
+				alert( "Please install the Blue Iris ActiveX component then refresh this page.");
+			}
+		}
+			
+		onWindowResize();
+    }
+    
+    function onWindowResize()
+    {
+        var isIE = Number(navigator.appName.indexOf('Internet Explorer')) != -1;
+        //var content_offset_w = 16 + 8; 
+        //var content_offset_h = 64 + 8; // + (isIE ? 3:0);
+
+		var myWidth = 0, myHeight = 0;
+		if( typeof( window.innerWidth ) == 'number' ) 
+		{
+			//Non-IE
+			myWidth = window.innerWidth;
+			myHeight = window.innerHeight;
+		}
+		 else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) 
+		 {
+			//IE 6+ in 'standards compliant mode'
+			myWidth = document.documentElement.clientWidth;
+			myHeight = document.documentElement.clientHeight;
+		  }
+		   else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) )
+		    {
+			//IE 4 compatible
+			myWidth = document.body.clientWidth;
+			myHeight = document.body.clientHeight;
+	    	}
+			
+			style="width: 120%; height:120%; margin-left: -12%; margin-top: -24%;"
+			myWidth = Math.floor(myWidth * 1.30);
+			myHeight = Math.floor(myWidth * .95);
+			
+			document.MediaPlayer.width = 1;
+			document.MediaPlayer.height = 1;
+			document.LiveVideo.width = myWidth;
+			document.LiveVideo.height = myHeight;
+		//margin-}
+    }
+    
+	function opencam()
+	{
+
+		destination = "jpg;640;480;http://" + serverIP + "/" + camName + ";no;1";
+		
+		if( !destination || destination=="off" )
+		{
+			bWM = false;
+			document.MediaPlayer.URL = "";
+
+			mediaWidth = 640;
+			mediaHeight = 480;
+			
+			try
+			{
+	//			document.LiveVideo.changeURL( parts[3] );
+			}
+			catch(er)
+			{
+				alert( "Blue Iris ActiveX component is not installed.");
+			}
+		}
+		else 
+		{
+			parts = destination.split(";");
+			
+			if( parts[0]=="wmv" )
+			{
+				mediaWidth = Number(parts[1]);
+				mediaHeight = Number(parts[2]);
+				
+				try
+				{
+					bWM = true;				
+					document.MediaPlayer.URL = parts[3];	
+				}
+				catch(er)
+				{
+					alert( "Media Player ActiveX component is not installed.");
+
+				}			
+			}
+			else
+			if( parts[0]=="jpg" )
+			{
+				bWM = false;				
+				document.MediaPlayer.URL = "";
+				
+				mediaWidth = Number(parts[1]);
+				mediaHeight = Number(parts[2]);
+				
+					
+				try
+				{
+				
+					var v = document.LiveVideo.GetVersion();
+					
+//					document.LiveVideo.bHideUI = false;
+					document.LiveVideo.changeURL( parts[3] + ";" + parts[5] + ";" + getSession() );
+				}
+				catch(er)
+				{
+					if( typeof( window.innerWidth ) == 'number' )
+					{
+						//Non-IE
+						alert( "Please use the JAVA page for this browser.");
+					}
+					else
+					{
+						alert( er + " Please install/update the Blue Iris ActiveX component then refresh this page.");
+					}
+				}
+			}		
+		}
+		onWindowResize();
+		
+	}
+	
+</script>
+
+</head>
+
+<body style="margin: 0px 0px; overflow: hidden;">
+					<script type="text/javascript">
+	var urlRaw = window.location.href;
+	var info = urlRaw.split("?");
+	if(info[1] == "blackout")
+	{
+		document.write('<div style="width: 100%; hieght: 100%; background-color: #000000;"></div>');
+	}
+	else
+	{
+		var urlReq = info[1].split("/");
+		var serverIP = urlReq[2];
+
+					document.write('<OBJECT ID="LiveVideo"');
+					document.write('classid="CLSID:BC165EA0-F79E-4F12-8493-80679EB5BEC2"');
+					document.write('type="application/x-oleobject"'); 
+					document.write('width="2" height="2" style="margin-top: -25%; margin-left: -11%;">');
+					document.write('</OBJECT><object id="MediaPlayer"  width="1" height="1" CLASSID="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6"');
+					document.write('standby="Loading Microsoft Windows Media Player components..."');
+					document.write('type="application/x-oleobject"><param name="uiMode" value="none"><embed type="application/x-mplayer2"');
+					document.write('pluginspage="http://www.microsoft.com/isapi/redir.dll?prd=windows&sbp=mediaplayer&ar=Media&sba=Plugin&"');
+					document.write('src="" name="MediaPlayer" width=1 height=1 autostart=1></object>');
+		}
+</script>
+</body>
+</html>

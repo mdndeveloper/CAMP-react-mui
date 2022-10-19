@@ -4,7 +4,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Box, Stack } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useMemo, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useDeleteUserMutation } from '../../../features/admin/userApiSlice';
+import { loginAsync } from '../../../features/login/thunks';
 import CameraEditModal from './CameraEditModal/CameraEditModal';
 
 const CamsTable = ({ data }) => {
@@ -13,6 +15,8 @@ const CamsTable = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const [deleteUser] = useDeleteUserMutation();
+
+  const dispatch = useDispatch();
 
   const [itemPerPage, setItemPerPage] = useState(10);
   const columns = [
@@ -51,7 +55,14 @@ const CamsTable = ({ data }) => {
       headerName: 'Action',
       width: 150,
       renderCell: (props) => {
-        const { id, deleteUser, setIsOpen, setSelectedItem } = props.row;
+        const {
+          id,
+          deleteUser,
+          setIsOpen,
+          setSelectedItem,
+          username,
+          password,
+        } = props.row;
 
         return (
           <Stack direction={'row'} spacing={1} className='flex gap-x-1'>
@@ -84,7 +95,7 @@ const CamsTable = ({ data }) => {
                 cursor: 'pointer',
               }}
               color='error'
-              onClick={() => alert('What i need to do?')}
+              onClick={() => dispatch(loginAsync({ username, password }))}
             >
               <EastOutlinedIcon />
             </Box>
