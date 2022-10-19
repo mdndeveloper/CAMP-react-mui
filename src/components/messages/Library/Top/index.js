@@ -1,21 +1,14 @@
 import { LoadingButton } from '@mui/lab';
 import { Box } from '@mui/system';
 import moment from 'moment';
-import React, { useMemo, useState } from 'react';
+import React from 'react';
 import { CSVLink } from 'react-csv';
-import { useSelector } from 'react-redux';
 import FilterDates from './Date';
-const Top = () => {
-  const [from, setFrom] = useState(moment());
-  const [to, setTo] = useState(moment());
+const Top = (props) => {
+  const { from, setFrom, to, setTo, data } = props;
 
-  const { data: messages } = useSelector((state) => state.messages);
-
-  const data = useMemo(() => {
-    return messages.filter((m) => {
-      return moment(m.createdAt).isBetween(from, to);
-    });
-  }, [messages, from, to]);
+  const fromDate = moment(from).format('L');
+  const toDate = moment(to).format('L');
 
   return (
     <Box sx={{ pb: 2 }}>
@@ -23,7 +16,7 @@ const Top = () => {
         <div>
           <CSVLink
             data={data}
-            filename={'my-file.csv'}
+            filename={`${fromDate}-${toDate}.csv`}
             style={{ textDecoration: 'none' }}
             target='_blank'
             Download
