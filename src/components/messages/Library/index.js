@@ -1,8 +1,30 @@
 import { Box, Divider, Paper, Typography } from '@mui/material';
-import React from 'react';
+import moment from 'moment';
+import React, { useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
+import Table from './Table';
 import Top from './Top';
 
 const Library = () => {
+  const [from, setFrom] = useState(moment());
+  const [to, setTo] = useState(moment());
+
+  const { data: messages } = useSelector((state) => state.messages);
+
+  const data = useMemo(() => {
+    return messages.filter((m) => {
+      return moment(m.createdAt).isBetween(from, to);
+    });
+  }, [messages, from, to]);
+
+  const topProps = {
+    to,
+    setTo,
+    from,
+    setFrom,
+    data,
+  };
+
   return (
     <div>
       <Box
@@ -35,7 +57,8 @@ const Library = () => {
         </Box>
         <Divider />
         <div>
-          <Top />
+          <Top {...topProps} />
+          <Table data={data} />
         </div>
       </Box>
     </div>

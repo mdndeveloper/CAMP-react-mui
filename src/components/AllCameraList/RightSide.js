@@ -1,20 +1,85 @@
 import { Box, Grid } from '@mui/material';
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchStreamAsync } from '../../features/stream/thunks';
+import { useGetConfigQuery } from '../../features/userConfig/userConfigApiSlice';
 import useInnerSize from '../../hooks/useInnerSize';
+import { getAuthUserId } from '../../utils/auth';
 import SingleCamera from './SingleCamera';
 
-const RightSide = () => {
-  const col = 3;
-  const row = 3;
+const LAYOUT_ITEMS = [
+  {
+    id: 1,
+    columnCount: 1,
+    rowCount: 1,
+    orientation: null,
+  },
+  {
+    id: 5,
+    columnCount: 3,
+    rowCount: 2,
+    orientation: 'horizontal',
+  },
+  {
+    id: 2,
+    columnCount: 3,
+    rowCount: 3,
+    orientation: 'horizontal',
+  },
+  {
+    id: 3,
+    columnCount: 4,
+    rowCount: 3,
+    orientation: 'horizontal',
+  },
+  {
+    id: 4,
+    columnCount: 4,
+    rowCount: 4,
+    orientation: 'horizontal',
+  },
+];
 
+const LAYOUT_ITEMS_WITH_NAME = LAYOUT_ITEMS.map((item) => {
+  const { orientation, rowCount, columnCount } = item;
+  const or = orientation ? `_${orientation}` : '';
+  const name = `cam_${rowCount * columnCount}${or}`;
+  return { ...item, name };
+});
+
+const RightSide = () => {
   const { height } = useInnerSize();
+
+  const dispatch = useDispatch();
+
+  const {
+    data: config,
+    isSuccess,
+    isLoading,
+  } = useGetConfigQuery(getAuthUserId(), { skip: false });
+
+  useEffect(() => {
+    if (!isLoading) {
+      dispatch(fetchStreamAsync());
+    }
+  }, [dispatch, isLoading]);
+
+  const cameras = useSelector((state) => state.stream.data);
+
+  const { row, col } = useMemo(() => {
+    if (!isSuccess) return { row: 1, col: 1 };
+    const name = config[0].cameraDisplay;
+    const cameraData = LAYOUT_ITEMS_WITH_NAME.find((i) => i.name === name);
+
+    return { row: cameraData.rowCount || 1, col: cameraData.columnCount || 1 };
+  }, [config, isSuccess]);
 
   return (
     <Box sx={{ height: '100vh', overflow: 'hidden' }}>
       <Grid container>
-        {LIST.slice(0, col * row).map((image) => (
-          <Grid xs={12 / col}>
-            <SingleCamera height={height / row} image={image.image} />
+        {cameras.slice(0, col * row).map((item) => (
+          <Grid xs={12 / col} key={item.id}>
+            <SingleCamera height={height / row} ipAddress={item.ipAddress} />
           </Grid>
         ))}
       </Grid>
@@ -23,155 +88,3 @@ const RightSide = () => {
 };
 
 export default RightSide;
-
-const LIST = [
-  {
-    id: 1,
-    image:
-      'https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 2,
-    image:
-      'https://images.pexels.com/photos/280229/pexels-photo-280229.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 3,
-    image:
-      'https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 4,
-    image:
-      'https://images.pexels.com/photos/2635038/pexels-photo-2635038.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 5,
-    image:
-      'https://images.pexels.com/photos/164558/pexels-photo-164558.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 6,
-    image:
-      'https://images.pexels.com/photos/280222/pexels-photo-280222.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 7,
-    image:
-      'https://images.pexels.com/photos/2089698/pexels-photo-2089698.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 8,
-    image:
-      'https://images.pexels.com/photos/1396132/pexels-photo-1396132.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 9,
-    image:
-      'https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 10,
-    image:
-      'https://images.pexels.com/photos/731082/pexels-photo-731082.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 11,
-    image:
-      'https://images.pexels.com/photos/221540/pexels-photo-221540.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 12,
-    image:
-      'https://images.pexels.com/photos/259962/pexels-photo-259962.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 13,
-    image:
-      'https://images.pexels.com/photos/13517201/pexels-photo-13517201.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load',
-  },
-  {
-    id: 14,
-    image:
-      'https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 15,
-    image:
-      'https://images.pexels.com/photos/280229/pexels-photo-280229.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 16,
-    image:
-      'https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 17,
-    image:
-      'https://images.pexels.com/photos/2635038/pexels-photo-2635038.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 18,
-    image:
-      'https://images.pexels.com/photos/164558/pexels-photo-164558.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 19,
-    image:
-      'https://images.pexels.com/photos/280222/pexels-photo-280222.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 20,
-    image:
-      'https://images.pexels.com/photos/2089698/pexels-photo-2089698.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 21,
-    image:
-      'https://images.pexels.com/photos/1396132/pexels-photo-1396132.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 22,
-    image:
-      'https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 23,
-    image:
-      'https://images.pexels.com/photos/731082/pexels-photo-731082.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 24,
-    image:
-      'https://images.pexels.com/photos/221540/pexels-photo-221540.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 25,
-    image:
-      'https://images.pexels.com/photos/259962/pexels-photo-259962.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 26,
-    image: '',
-  },
-  {
-    id: 27,
-    image:
-      'https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 28,
-    image:
-      'https://images.pexels.com/photos/280229/pexels-photo-280229.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 29,
-    image:
-      'https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 30,
-    image:
-      'https://images.pexels.com/photos/2635038/pexels-photo-2635038.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-];

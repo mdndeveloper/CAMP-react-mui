@@ -6,6 +6,10 @@ const initialState = {
   error: '',
   isAuthenticated: false,
   user: {},
+  proxy: {
+    isProxy: false,
+    data: {},
+  },
 };
 
 export const authSlice = createSlice({
@@ -15,6 +19,16 @@ export const authSlice = createSlice({
     setToken: (state, action) => {
       state.isAuthenticated = true;
       state.user = action.payload;
+    },
+    setProxyUser: (state, action) => {
+      const data = action.payload;
+
+      state.proxy.isProxy = true;
+      state.proxy.data = data || {};
+    },
+    removeProxyUser: (state, action) => {
+      state.proxy.isProxy = false;
+      state.proxy.data = {};
     },
     logout: (state, action) => {
       state.isAuthenticated = false;
@@ -41,6 +55,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setToken, logout } = authSlice.actions;
+export const { setToken, logout, setProxyUser, removeProxyUser } =
+  authSlice.actions;
 
 export default authSlice.reducer;

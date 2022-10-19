@@ -4,7 +4,10 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Box, Stack } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useMemo, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { useDeleteUserMutation } from '../../../features/admin/userApiSlice';
+import { setProxyUser } from '../../../features/login/authSlice';
 import CameraEditModal from './CameraEditModal/CameraEditModal';
 
 const CamsTable = ({ data }) => {
@@ -13,6 +16,9 @@ const CamsTable = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const [deleteUser] = useDeleteUserMutation();
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const [itemPerPage, setItemPerPage] = useState(10);
   const columns = [
@@ -84,7 +90,10 @@ const CamsTable = ({ data }) => {
                 cursor: 'pointer',
               }}
               color='error'
-              onClick={() => alert('What i need to do?')}
+              onClick={() => {
+                dispatch(setProxyUser(props.row));
+                navigate('/messages');
+              }}
             >
               <EastOutlinedIcon />
             </Box>
