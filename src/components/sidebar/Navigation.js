@@ -21,6 +21,7 @@ const configureUrl = [
 
 function Navigation() {
   const { is_admin } = useSelector((state) => state?.auth?.user);
+  const { isProxy } = useSelector((state) => state?.auth?.proxy);
   return (
     <Box
       sx={{
@@ -47,19 +48,19 @@ function Navigation() {
           icon={<FaBookOpen />}
           activeUrls={configureUrl}
         />
-        {!is_admin && (
+        {(!is_admin || isProxy) && (
           <>
             <Item
-              url='/cameras'
+              url='/back-display'
               text={'Back Display'}
               icon={<FaCameraRetro />}
-              activeUrls={['/cameras']}
+              activeUrls={['/back-display']}
             />
             <Item
-              url='/camera'
+              url='/cameras'
               text={'Lobby Display'}
               icon={<FaCamera />}
-              activeUrls={['/camera']}
+              activeUrls={['/cameras']}
             />
           </>
         )}

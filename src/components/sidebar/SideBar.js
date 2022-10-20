@@ -25,7 +25,7 @@ const SideBar = ({ elementHeight }) => {
         boxSizing: 'border-box',
       }}
     >
-      <div>{user.is_admin && isProxy && <Navigation />}</div>
+      <div>{(!user.is_admin || isProxy) && <Navigation />}</div>
       <div>
         <UserMenu />
       </div>

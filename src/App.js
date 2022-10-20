@@ -7,6 +7,7 @@ import DefaultImages from './pages/admin/DefaultImages';
 import DefaultMessages from './pages/admin/DefaultMessages';
 import Locations from './pages/admin/Locations';
 import AllCameraList from './pages/AllCameraList';
+import BackDisplay from './pages/BackDispaly/BackDisplay';
 import Displays from './pages/confugure/Dispalays';
 import Marketplace from './pages/confugure/Marketplace';
 import MessagesSounds from './pages/confugure/MessagesSounds';
@@ -46,6 +47,7 @@ const App = () => {
                 <Route path='/configure/displays' element={<Displays />} />
                 <Route path='/cameras' element={<AllCameraList />} />
                 <Route path='/camera' element={<SingleCamera />} />
+                <Route path='/back-display' element={<BackDisplay />} />
               </Route>
 
               <Route element={<OnlyAdminRoutes />}>

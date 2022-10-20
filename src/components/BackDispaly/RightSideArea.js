@@ -1,9 +1,9 @@
 import { Box, Grid } from '@mui/material';
 import React from 'react';
 
-import logo from '../../assets/images/login-left.png';
+import logo from '../../assets/images/logo.png';
 
-const LoginLogo = () => {
+const RightSideArea = () => {
   return (
     <Grid
       container
@@ -11,16 +11,18 @@ const LoginLogo = () => {
       alignItems='center'
       sx={styles.main}
       xs={12}
-      height={'100vh'}
     >
       <Box component='div' sx={styles.imageWrapper}>
+        <Box sx={{ fontSize: 37, textAlign: 'right', mb: '20px' }} as={'h2'}>
+          5: 00 am
+        </Box>
         <Box component='img' sx={styles.image} alt='logo' src={logo} />
       </Box>
     </Grid>
   );
 };
 
-export default LoginLogo;
+export default RightSideArea;
 
 const styles = {
   main: {
