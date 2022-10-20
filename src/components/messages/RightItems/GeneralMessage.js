@@ -21,7 +21,7 @@ const Item = () => {
       message,
       dateTime: moment(),
       days: 0,
-      duration: 0,
+      duration: 90,
       lastSent: null,
       type: '',
       category: 'general',

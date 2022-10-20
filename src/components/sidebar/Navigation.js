@@ -51,16 +51,18 @@ function Navigation() {
         {(!is_admin || isProxy) && (
           <>
             <Item
-              url='/back-display'
+              onClick={() => {
+                window.open('/back-display');
+              }}
               text={'Back Display'}
               icon={<FaCameraRetro />}
-              activeUrls={['/back-display']}
             />
             <Item
-              url='/cameras'
+              onClick={() => {
+                window.open('/cameras');
+              }}
               text={'Lobby Display'}
               icon={<FaCamera />}
-              activeUrls={['/cameras']}
             />
           </>
         )}

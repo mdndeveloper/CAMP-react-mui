@@ -1,10 +1,14 @@
 const NAME = 'proxy_user';
 export const storeProxyUser = (data) => {
-  localStorage.setItem(NAME, JSON.stringify({ isProxy: true, data }));
+  localStorage.setItem(NAME, JSON.stringify(data));
 };
 
 export const getProxyUser = () => {
-  return localStorage.getItem(JSON.parse(NAME));
+  try {
+    return JSON.parse(localStorage.getItem(NAME));
+  } catch (error) {
+    return {};
+  }
 };
 
 export const deleteProxyUser = () => {

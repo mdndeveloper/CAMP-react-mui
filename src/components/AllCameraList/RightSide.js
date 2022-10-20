@@ -65,13 +65,16 @@ const RightSide = () => {
   }, [dispatch, isLoading]);
 
   const cameras = useSelector((state) => state.stream.data);
-
   const { row, col } = useMemo(() => {
-    if (!isSuccess) return { row: 1, col: 1 };
+    if (!isSuccess || config.length === 0) return { row: 1, col: 1 };
+
     const name = config[0].cameraDisplay;
     const cameraData = LAYOUT_ITEMS_WITH_NAME.find((i) => i.name === name);
-
-    return { row: cameraData.rowCount || 1, col: cameraData.columnCount || 1 };
+    console.log({ row: cameraData.rowCount, col: cameraData.columnCount });
+    return {
+      row: cameraData.rowCount,
+      col: cameraData.columnCount,
+    };
   }, [config, isSuccess]);
 
   return (

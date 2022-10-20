@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import React from 'react';
-const file = 'files/camsFront.html';
+// const file = 'files/camsFront.html';
 
 const SingleCamera = ({ height, ipAddress }) => {
   return (
@@ -19,12 +19,13 @@ const SingleCamera = ({ height, ipAddress }) => {
             height,
           }}
         >
-          <iframe
+          p
+          {/* <iframe
             src={`${file}?${ipAddress}`}
             title={ipAddress}
             frameborder='0'
             width='100%'
-          ></iframe>
+          ></iframe> */}
         </Box>
       </Box>
     </Box>

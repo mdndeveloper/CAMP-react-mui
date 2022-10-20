@@ -1,9 +1,11 @@
 import { Grid } from '@mui/material';
 import React from 'react';
+import { getAuthUserId } from '../../utils/auth';
 import Content from './Content';
 import RightSideArea from './RightSideArea';
 
 const BackDisplayContent = () => {
+  if (!getAuthUserId()) return 'You are not authorized';
   return (
     <div>
       <Grid container>

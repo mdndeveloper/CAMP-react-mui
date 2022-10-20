@@ -92,7 +92,10 @@ const CamsTable = ({ data }) => {
               }}
               color='error'
               onClick={() => {
-                storeProxyUser(props.row);
+                const data = { ...props.row };
+                delete data.password;
+                delete data.username;
+                storeProxyUser(data);
                 dispatch(setProxyUser(props.row));
                 navigate('/messages');
               }}

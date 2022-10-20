@@ -11,16 +11,16 @@ export const getAuthUser = () => {
   return {};
 };
 
-export const getAuthUserId = () => {
+export const getAuthUserId = (isAdmin = false) => {
   try {
     const { user } = getAuthUser();
 
     if (!user || Object.keys(user).length === 0) return null;
-    if (!user.is_admin) return user.id;
+    if (!user.is_admin || isAdmin) return user.id;
     const proxy = getProxyUser();
 
     if (!proxy || Object.keys(proxy).length === 0) return null;
-    return proxy.data.id;
+    return proxy.id;
   } catch (error) {
     return null;
   }
