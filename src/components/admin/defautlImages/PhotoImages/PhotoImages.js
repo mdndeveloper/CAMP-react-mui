@@ -6,8 +6,6 @@ import { fetchSlideShowAsync } from '../../../../features/slideShow/thunks';
 import Card from '../../Card';
 import Add from './Add';
 import Item from './Item';
-const PHOTOS_BASE_URL =
-  'https://dev.preschoolreports.com/admin/timthumb.php?src=admin/photo_slides/';
 
 const PhotoImages = () => {
   const { photos } = useSelector((state) => state.slide);
@@ -20,7 +18,8 @@ const PhotoImages = () => {
   const formatePhotos = useMemo(() => {
     if (photos.length === 0) return [];
     return photos.reduce((acc, cur) => {
-      acc.push({ ...cur, file_name: PHOTOS_BASE_URL + cur.file_name });
+      const file = cur.blob ? `data:image/jpeg;base64,${cur.blob}` : '';
+      acc.push({ ...cur, file });
       return acc;
     }, []);
   }, [photos]);

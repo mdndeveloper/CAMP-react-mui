@@ -1,12 +1,15 @@
-import { Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import React from 'react';
+import bgPattern from '../../assets/images/bg_pattern.png';
+import useInnerSize from '../../hooks/useInnerSize';
 import LeftSide from './LeftSide';
 import RightSide from './RightSide';
 
 const AllCameraListContainer = () => {
   const leftShow = false;
+  const { height } = useInnerSize();
   return (
-    <div>
+    <Box as='div' sx={{ background: `url(${bgPattern})`, height }}>
       <Grid container>
         <Grid xs={2} sx={{ display: leftShow ? 'block' : 'none' }}>
           <LeftSide />
@@ -15,7 +18,7 @@ const AllCameraListContainer = () => {
           <RightSide />
         </Grid>
       </Grid>
-    </div>
+    </Box>
   );
 };
 
