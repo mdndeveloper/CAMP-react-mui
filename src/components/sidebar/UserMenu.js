@@ -6,6 +6,7 @@ import React from 'react';
 import { FaAngleRight, FaRegQuestionCircle, FaUserAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout, removeProxyUser } from '../../features/login/authSlice';
+import { deleteProxyUser } from '../../utils/proxyUser';
 import { removeToken } from '../../utils/token';
 import Item from './Item';
 
@@ -18,7 +19,9 @@ function UserMenu() {
   const dispatch = useDispatch();
   const logoutHandler = () => {
     removeToken();
+    deleteProxyUser();
     dispatch(logout());
+    dispatch(removeProxyUser());
   };
   const { is_admin } = useSelector((state) => state?.auth?.user);
   const { isProxy } = useSelector((state) => state?.auth?.proxy);
@@ -45,7 +48,7 @@ function UserMenu() {
             text={'Return to admin'}
             icon={<FaUserAlt />}
             onClick={() => {
-              console.log('data');
+              deleteProxyUser();
               dispatch(removeProxyUser());
             }}
             activeUrls={adminUrls}

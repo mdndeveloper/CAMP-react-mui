@@ -1,3 +1,4 @@
+import { getProxyUser } from './proxyUser';
 import { decodeToken, getToken } from './token';
 
 export const getAuthUser = () => {
@@ -11,10 +12,16 @@ export const getAuthUser = () => {
 };
 
 export const getAuthUserId = () => {
-  const user = getAuthUser();
+  try {
+    const { user } = getAuthUser();
 
-  if (Object.keys(user).length > 0) {
-    return user?.user?.id || null;
+    if (!user || Object.keys(user).length === 0) return null;
+    if (!user.is_admin) return user.id;
+    const proxy = getProxyUser();
+
+    if (!proxy || Object.keys(proxy).length === 0) return null;
+    return proxy.data.id;
+  } catch (error) {
+    return null;
   }
-  return null;
 };
