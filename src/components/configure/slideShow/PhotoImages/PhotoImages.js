@@ -6,8 +6,6 @@ import Card from '../../Card';
 import RotationTimer from '../PhotoImages/RotationTimer';
 import Add from './Add';
 import Item from './Item';
-const PHOTOS_BASE_URL =
-  'https://dev.preschoolreports.com/admin/timthumb.php?src=admin/photo_slides/';
 
 const PhotoImages = () => {
   const { photos } = useSelector((state) => state.slide);
@@ -15,7 +13,8 @@ const PhotoImages = () => {
   const formatePhotos = useMemo(() => {
     if (photos.length === 0) return [];
     return photos.reduce((acc, cur) => {
-      acc.push({ ...cur, file_name: PHOTOS_BASE_URL + cur.file_name });
+      const file = cur.blob ? `data:image/jpeg;base64,${cur.blob}` : '';
+      acc.push({ ...cur, file });
       return acc;
     }, []);
   }, [photos]);
@@ -25,7 +24,7 @@ const PhotoImages = () => {
       <Card title='Photo Images'>
         <Stack direction={'row'} gap={2} flexWrap={'wrap'}>
           {formatePhotos.map((item) => (
-            <Item key={item.id} id={item.id} image={item.file_name} />
+            <Item key={item.id} id={item.id} image={item.file} />
           ))}
           <Add />
         </Stack>
