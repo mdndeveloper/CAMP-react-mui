@@ -56,7 +56,7 @@ const RightSide = () => {
     data: config,
     isSuccess,
     isLoading,
-  } = useGetConfigQuery(getAuthUserId(), { skip: false });
+  } = useGetConfigQuery(getAuthUserId());
 
   useEffect(() => {
     if (!isLoading) {

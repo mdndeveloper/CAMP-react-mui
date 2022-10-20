@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@brianmcallister/react-auto-scroll": "^1.1.0",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@mui/base": "^5.0.0-alpha.100",
@@ -27,6 +28,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "shortid": "^2.2.16",
+    "socket.io-client": "^4.5.3",
     "swiper": "^8.3.2",
     "web-vitals": "^2.1.4"
   },
