@@ -10,7 +10,7 @@ export const configApiSlice = createApi({
     prepareHeaders: (headers) => {
       const token = getToken();
       headers.set('Authorization', token ? `Bearer ${token}` : '');
-      headers.set('userid', getAuthUserId());
+      headers.set('userid', getAuthUserId(true));
       return headers;
     },
   }),

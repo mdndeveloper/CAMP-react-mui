@@ -45,10 +45,10 @@ const App = () => {
                   element={<Marketplace />}
                 />
                 <Route path='/configure/displays' element={<Displays />} />
-                <Route path='/cameras' element={<AllCameraList />} />
-                <Route path='/camera' element={<SingleCamera />} />
-                <Route path='/back-display' element={<BackDisplay />} />
               </Route>
+              <Route path='/camera' element={<SingleCamera />} />
+              <Route path='/cameras' element={<AllCameraList />} />
+              <Route path='/back-display' element={<BackDisplay />} />
 
               <Route element={<OnlyAdminRoutes />}>
                 <Route path='/admin' element={<AdminRedirect />} />

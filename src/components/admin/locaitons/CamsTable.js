@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useDeleteUserMutation } from '../../../features/admin/userApiSlice';
 import { setProxyUser } from '../../../features/login/authSlice';
+import { storeProxyUser } from '../../../utils/proxyUser';
 import CameraEditModal from './CameraEditModal/CameraEditModal';
 
 const CamsTable = ({ data }) => {
@@ -91,6 +92,10 @@ const CamsTable = ({ data }) => {
               }}
               color='error'
               onClick={() => {
+                const data = { ...props.row };
+                delete data.password;
+                delete data.username;
+                storeProxyUser(data);
                 dispatch(setProxyUser(props.row));
                 navigate('/messages');
               }}

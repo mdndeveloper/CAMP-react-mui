@@ -2,6 +2,7 @@ import AutoScroll from '@brianmcallister/react-auto-scroll';
 import moment from 'moment';
 import React, { useMemo, useState } from 'react';
 import { useInnerSize } from '../../hooks/useInnerSize';
+import { getAuthUserId } from '../../utils/auth';
 import socket from '../../utils/socketIOInstance';
 import Item from './Item';
 
@@ -13,6 +14,8 @@ const Content = () => {
     const filterData = allMessages.filter((item) => item.id !== id);
     setMessages(filterData);
   };
+
+  console.log(getAuthUserId());
 
   const height = useMemo(() => {
     const calculateHeight = windowHeight / allMessages.length;
