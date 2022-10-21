@@ -1,6 +1,8 @@
 import CloseIcon from '@mui/icons-material/Close';
 import {
   Button,
+  Checkbox,
+  FormControlLabel,
   FormHelperText,
   Grid,
   Modal,
@@ -208,6 +210,22 @@ const CameraAddModal = ({ open, setOpen }) => {
                 </Stack>
               </Grid>
             </Grid>
+
+            <div>
+              <FormControlLabel
+                control={<Checkbox />}
+                label='Is Admin'
+                {...register('is_admin', {
+                  setValueAs: (v) => !!v,
+                })}
+              />
+
+              {errors?.is_admin && (
+                <FormHelperText sx={{ color: 'red' }}>
+                  {errors.is_admin.message}
+                </FormHelperText>
+              )}
+            </div>
 
             {/* submit button */}
             <Box sx={styles.submitButton}>

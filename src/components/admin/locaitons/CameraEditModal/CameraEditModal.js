@@ -1,6 +1,7 @@
 import CloseIcon from '@mui/icons-material/Close';
 import {
   Button,
+  Checkbox,
   FormHelperText,
   Grid,
   Modal,
@@ -9,6 +10,8 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+
+import { FormLabel } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -46,9 +49,15 @@ const CameraEditModal = ({ open, setOpen, id }) => {
     handleSubmit,
     setValue,
     reset,
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      is_admin: false,
+    },
+  });
 
   const submitHandler = (data) => {
+    console.log(data);
+    return;
     editUser({ id, data });
   };
 
@@ -61,6 +70,7 @@ const CameraEditModal = ({ open, setOpen, id }) => {
     setValue('contactno', data?.contactno);
     setValue('email', data?.email);
     setValue('location', data?.location);
+    setValue('is_admin', data?.is_admin);
   }, [allUsers, setValue, id]);
 
   useEffect(() => {
@@ -224,6 +234,20 @@ const CameraEditModal = ({ open, setOpen, id }) => {
                 </Stack>
               </Grid>
             </Grid>
+
+            <div>
+              <Checkbox
+                checked={!!watch('is_admin') || false}
+                onChange={(_, value) => setValue('is_admin', !!value)}
+              />
+              <FormLabel> Is Admin </FormLabel>
+
+              {errors?.is_admin && (
+                <FormHelperText sx={{ color: 'red' }}>
+                  {errors.is_admin.message}
+                </FormHelperText>
+              )}
+            </div>
 
             {/* submit button */}
             <Box sx={styles.submitButton}>
