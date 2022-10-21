@@ -61,10 +61,11 @@ export default function Table() {
     if (messages.length <= 0) return [];
 
     return messages.reduce((acc, cur) => {
-      const condition = moment().isBefore(cur.dateTime, 'second');
-      if (condition) {
-        acc.push({ ...cur, dispatch });
-      }
+      //   const condition = moment().isBefore(cur.dateTime, 'second');
+      //   if (condition) {
+      //     acc.push({ ...cur, dispatch });
+      // }
+      acc.push({ ...cur, dispatch });
       return acc;
     }, []);
   }, [messages, dispatch]);

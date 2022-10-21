@@ -14,10 +14,10 @@ const Header = () => {
         overflow: 'hidden',
       }}
     >
-      <div className='container'>
+      <div className=''>
         <Grid container alignItems={'center'}>
           <Grid md={3}>
-            <Box as='div' sx={{ width: '300px', height: '90px' }}>
+            <Box as='div' sx={{ width: '200px', height: '90px' }}>
               <Box
                 sx={{
                   width: '100%',

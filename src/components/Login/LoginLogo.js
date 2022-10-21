@@ -1,6 +1,5 @@
 import { Box, Grid } from '@mui/material';
 import React from 'react';
-
 import logo from '../../assets/images/login-left.png';
 
 const LoginLogo = () => {
@@ -24,7 +23,7 @@ export default LoginLogo;
 
 const styles = {
   main: {
-    background: `linear-gradient(139deg,#e1d0e4,#e1d0e4, #fcf9fd)`,
+    // background: ``,
     py: '30px',
     height: {
       xs: 'auto',
