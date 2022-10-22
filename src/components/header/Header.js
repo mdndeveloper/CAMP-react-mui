@@ -1,6 +1,7 @@
 import { Grid } from '@mui/material';
 import { Box } from '@mui/system';
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import logoImage from '../../assets/images/logo.png';
 
 const Header = () => {
@@ -16,7 +17,7 @@ const Header = () => {
     >
       <div className=''>
         <Grid container alignItems={'center'}>
-          <Grid md={3}>
+          <Grid xs={3}>
             <Box as='div' sx={{ width: '200px', height: '90px' }}>
               <Box
                 sx={{
@@ -30,12 +31,8 @@ const Header = () => {
               />
             </Box>
           </Grid>
-          <Grid md={9}>
-            <Box sx={{ display: 'flex', justifyContent: 'end' }}>
-              <div>
-                <p>Camp Bow Wow Convington</p>
-              </div>
-            </Box>
+          <Grid xs={9}>
+            <RightSide />
           </Grid>
         </Grid>
       </div>
@@ -44,3 +41,28 @@ const Header = () => {
 };
 
 export default Header;
+
+const RightSide = () => {
+  const { user, isAuthenticated, proxy } = useSelector((state) => state.auth);
+  const text = useMemo(() => {
+    if (!isAuthenticated) return '';
+
+    const { is_admin, username } = user;
+    const { isProxy, data } = proxy;
+
+    if (is_admin && !isProxy) return 'Master Admin';
+    if (is_admin && isProxy) return data.username;
+
+    return username;
+  }, [user, isAuthenticated, proxy]);
+
+  if (!isAuthenticated) return null;
+
+  return (
+    <Box sx={{ display: 'flex', justifyContent: 'end', mr: '20px' }}>
+      <div>
+        <p>{text}</p>
+      </div>
+    </Box>
+  );
+};
