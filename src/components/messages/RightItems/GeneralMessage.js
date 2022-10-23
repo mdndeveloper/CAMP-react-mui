@@ -4,9 +4,12 @@ import moment from 'moment';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessageAsync } from '../../../features/message/thunks';
+import { useGetConfigQuery } from '../../../features/userConfig/userConfigApiSlice';
 import { getAuthUserId } from '../../../utils/auth';
 
 const Item = () => {
+  const { data: config, isSuccess } = useGetConfigQuery(getAuthUserId());
+
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const { isLoading } = useSelector((state) => state.messages);
@@ -21,7 +24,7 @@ const Item = () => {
       message,
       dateTime: moment(),
       days: 0,
-      duration: 90,
+      duration: config[0]?.defaultDuration,
       lastSent: null,
       type: '',
       category: 'general',
@@ -32,7 +35,7 @@ const Item = () => {
       setMessage('');
     }, 2000);
   };
-
+  if (!isSuccess) return null;
   return (
     <div>
       <Stack direction='row' gap={2} alignItems={'start'} flexWrap='wrap'>
