@@ -17,7 +17,7 @@ const columns = [
     field: 'icon',
     sortable: false,
     renderCell: (props) => {
-      const { row } = props;
+      //   const { row } = props;
 
       return (
         <>
@@ -90,11 +90,7 @@ export default function Table() {
 
   const dispatch = useDispatch();
 
-  const {
-    data: streams,
-    isLoading,
-    error,
-  } = useSelector((state) => state.stream);
+  const { data: streams } = useSelector((state) => state.stream);
 
   const streamSetup = React.useMemo(() => {
     if (streams.length === 0) return [];

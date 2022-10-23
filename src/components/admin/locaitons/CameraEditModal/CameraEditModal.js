@@ -56,8 +56,6 @@ const CameraEditModal = ({ open, setOpen, id }) => {
   });
 
   const submitHandler = (data) => {
-    console.log(data);
-    return;
     editUser({ id, data });
   };
 
