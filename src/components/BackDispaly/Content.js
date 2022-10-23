@@ -2,7 +2,6 @@ import AutoScroll from '@brianmcallister/react-auto-scroll';
 import moment from 'moment';
 import React, { useMemo, useState } from 'react';
 import { useInnerSize } from '../../hooks/useInnerSize';
-import { getAuthUserId } from '../../utils/auth';
 import socket from '../../utils/socketIOInstance';
 import Item from './Item';
 
@@ -15,8 +14,6 @@ const Content = () => {
     setMessages(filterData);
   };
 
-  console.log(getAuthUserId());
-
   const height = useMemo(() => {
     const calculateHeight = windowHeight / allMessages.length;
     if (calculateHeight > 150) return calculateHeight;
@@ -24,32 +21,40 @@ const Content = () => {
   }, [allMessages, windowHeight]);
 
   socket.on('connect', () => {
-    console.log('socket connected');
     let savedMessagedData = [];
     socket.on('users connected', function () {
-      console.log('user connected');
-      socket.on('new note', function (messageData) {
-        const findData = savedMessagedData?.find((item) => {
-          return item.id === messageData.id;
-        });
-
-        if (!findData) {
-          setMessages((prevData) => {
-            const find = prevData.find((p) => p.id === messageData.id);
-
-            if (!find) {
-              savedMessagedData.push(messageData);
-
-              setTimeout(() => {
-                removeItem(messageData.id);
-                savedMessagedData = savedMessagedData.filter(
-                  (item) => item.id !== messageData.id
-                );
-              }, 90 * 1000);
-              return [...prevData, messageData];
-            }
-            return prevData;
+      socket.on('new note', function (data) {
+        if (Array.isArray(data)) {
+          data.forEach((item) => {
+            work(item);
           });
+        } else {
+          work(data);
+        }
+        function work(messageData) {
+          const findData = savedMessagedData?.find((item) => {
+            return item.id === messageData.id;
+          });
+          // messageData
+
+          if (!findData) {
+            setMessages((prevData) => {
+              const find = prevData.find((p) => p.id === messageData.id);
+
+              if (!find) {
+                savedMessagedData.push(messageData);
+
+                setTimeout(() => {
+                  removeItem(messageData.id);
+                  savedMessagedData = savedMessagedData.filter(
+                    (item) => item.id !== messageData.id
+                  );
+                }, 90 * 1000);
+                return [...prevData, messageData];
+              }
+              return prevData;
+            });
+          }
         }
       });
     });

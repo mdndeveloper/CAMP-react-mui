@@ -58,6 +58,3 @@ const SingleCameraContainer = () => {
 };
 
 export default SingleCameraContainer;
-
-const image =
-  'https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=600';
