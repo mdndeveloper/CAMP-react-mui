@@ -28,7 +28,7 @@ const InterView = () => {
       }`,
       dateTime: moment(),
       days: 0,
-      duration: 0,
+      duration: config[0]?.defaultDuration || 0,
       lastSent: null,
       type: '',
       category: 'interview',
