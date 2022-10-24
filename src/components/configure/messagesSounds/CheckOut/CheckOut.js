@@ -1,7 +1,7 @@
 import { LoadingButton } from '@mui/lab';
 import { Box, TextField } from '@mui/material';
 import { Stack } from '@mui/system';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   useGetConfigQuery,
@@ -14,11 +14,6 @@ const CheckOut = () => {
   const { data, isSuccess } = useGetConfigQuery(getAuthUserId());
   const [updateConfig, { isLoading }] = useUpdateConfigMutation();
 
-  const duration = useMemo(() => {
-    if (!isSuccess) return 0;
-    return data[0].defaultDuration;
-  }, [isSuccess, data]);
-
   const {
     register,
     setValue,
@@ -28,12 +23,14 @@ const CheckOut = () => {
   } = useForm({
     checkOutMessage: '',
     checkOutSound: '',
+    checkOutDuration: 0,
   });
 
   useEffect(() => {
     if (isSuccess) {
       setValue('checkOutMessage', data[0].checkOutMessage);
       setValue('checkOutSound', data[0].checkOutSound);
+      setValue('checkOutDuration', data[0].checkOutDuration);
     }
   }, [isSuccess, data, setValue]);
 
@@ -88,7 +85,9 @@ const CheckOut = () => {
                 placeholder={'input here'}
                 defaultValue={90}
                 fullWidth
-                value={duration}
+                {...register('checkOutDuration', {
+                  required: 'This field is required!',
+                })}
               />
             </Box>
           </div>
