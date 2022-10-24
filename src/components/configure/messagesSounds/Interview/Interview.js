@@ -36,47 +36,49 @@ const QuickSend = () => {
     });
   };
   return (
-    <form onSubmit={handleSubmit(submitHandler)}>
+    <div>
       <Card title={'Interview'} color='#6087d4'>
         <TopInterview />
-        <Stack
-          direction={{ xs: 'column', sm: 'row' }}
-          gap={4}
-          sx={{ py: '12px' }}
-        >
-          <div>
-            <Box sx={{ flex: 1 }}>
-              <TextField
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                label='Create Interview'
-                variant='outlined'
-                fullWidth
-                {...register('displayName', {
-                  required: 'This field is required!',
-                })}
-                error={!!errors.displayName}
-                helperText={errors?.displayName?.message || ''}
-              />
-            </Box>
-          </div>
+        <form onSubmit={handleSubmit(submitHandler)}>
+          <Stack
+            direction={{ xs: 'column', sm: 'row' }}
+            gap={4}
+            sx={{ py: '12px' }}
+          >
+            <div>
+              <Box sx={{ flex: 1 }}>
+                <TextField
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  label='Create Interview'
+                  variant='outlined'
+                  fullWidth
+                  {...register('displayName', {
+                    required: 'This field is required!',
+                  })}
+                  error={!!errors.displayName}
+                  helperText={errors?.displayName?.message || ''}
+                />
+              </Box>
+            </div>
 
-          <div>
-            <LoadingButton
-              loading={isLoading}
-              variant='contained'
-              type='submit'
-              //   sx={{ background: '#82da73' }}
-            >
-              Add
-            </LoadingButton>
-          </div>
-        </Stack>
+            <div>
+              <LoadingButton
+                loading={isLoading}
+                variant='contained'
+                type='submit'
+                //   sx={{ background: '#82da73' }}
+              >
+                Add
+              </LoadingButton>
+            </div>
+          </Stack>
+        </form>
 
         <ListTable />
       </Card>
-    </form>
+    </div>
   );
 };
 

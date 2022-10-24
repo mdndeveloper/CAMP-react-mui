@@ -1,7 +1,7 @@
 import { LoadingButton } from '@mui/lab';
 import { Box, TextField } from '@mui/material';
 import { Stack } from '@mui/system';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   useGetConfigQuery,
@@ -13,11 +13,6 @@ const TopInterview = () => {
   const { data, isSuccess } = useGetConfigQuery(getAuthUserId());
   const [updateConfig, { isLoading }] = useUpdateConfigMutation();
 
-  const duration = useMemo(() => {
-    if (!isSuccess) return 0;
-    return data[0].defaultDuration;
-  }, [isSuccess, data]);
-
   const {
     register,
     setValue,
@@ -27,12 +22,14 @@ const TopInterview = () => {
   } = useForm({
     interviewMessage: '',
     interviewSound: '',
+    interviewDuration: 0,
   });
 
   useEffect(() => {
     if (isSuccess) {
       setValue('interviewMessage', data[0].interviewMessage);
       setValue('interviewSound', data[0].interviewSound);
+      setValue('interviewDuration', data[0].interviewDuration);
     }
   }, [isSuccess, data, setValue]);
 
@@ -84,19 +81,15 @@ const TopInterview = () => {
               label='Duration (sec)'
               variant='outlined'
               placeholder={'input here'}
-              defaultValue={90}
               fullWidth
-              value={duration}
+              {...register('interviewDuration', {
+                required: 'This field is required!',
+              })}
             />
           </Box>
         </div>
         <div>
-          <LoadingButton
-            loading={isLoading}
-            variant='contained'
-            type='submit'
-            //   sx={{ background: '#82da73' }}
-          >
+          <LoadingButton loading={isLoading} variant='contained' type='submit'>
             Save
           </LoadingButton>
         </div>
