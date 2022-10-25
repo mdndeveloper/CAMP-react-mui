@@ -1,8 +1,15 @@
 import { Box } from '@mui/system';
 import React from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { deletePhotosAsync } from '../../../../features/slideShow/thunks';
 
-const Item = ({ onlyImage = false, image }) => {
+const Item = ({ onlyImage = false, image, id }) => {
+  const dispatch = useDispatch();
+
+  const deleteHandler = () => {
+    dispatch(deletePhotosAsync(id));
+  };
   return (
     <div>
       <Box
@@ -43,6 +50,7 @@ const Item = ({ onlyImage = false, image }) => {
             className='image-overlay'
           >
             <Box
+              onClick={deleteHandler}
               sx={{
                 fontSize: '35px',
                 '&:hover': {

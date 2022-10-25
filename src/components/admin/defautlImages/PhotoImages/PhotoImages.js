@@ -29,7 +29,7 @@ const PhotoImages = () => {
       <Card title='Photo Images'>
         <Stack direction={'row'} gap={2} flexWrap={'wrap'}>
           {formatePhotos.map((item) => (
-            <Item key={item.id} id={item.id} image={item.file_name} />
+            <Item key={item.id} id={item.id} image={item.file} />
           ))}
           <Add />
         </Stack>

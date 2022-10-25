@@ -5,7 +5,10 @@ import MenuList from '@mui/material/MenuList';
 import React from 'react';
 import { FaAngleRight, FaRegQuestionCircle, FaUserAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
+import { userApiSlice } from '../../features/admin/userApiSlice';
 import { logout, removeProxyUser } from '../../features/login/authSlice';
+import { configApiSlice } from '../../features/userConfig/userConfigApiSlice';
+import { userElementApiSlice } from '../../features/userElement/userElementApiSlice';
 import { deleteProxyUser } from '../../utils/proxyUser';
 import { removeToken } from '../../utils/token';
 import Item from './Item';
@@ -50,6 +53,9 @@ function UserMenu() {
             onClick={() => {
               deleteProxyUser();
               dispatch(removeProxyUser());
+              dispatch(configApiSlice.util.resetApiState());
+              dispatch(userApiSlice.util.resetApiState());
+              dispatch(userElementApiSlice.util.resetApiState());
             }}
             activeUrls={adminUrls}
           />
