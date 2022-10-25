@@ -13,7 +13,7 @@ import {
 
 import { FormLabel } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   useEditUserMutation,
@@ -21,26 +21,11 @@ import {
 } from '../../../../features/admin/userApiSlice';
 import styles from './configureFormstyles';
 import CustomSelect from './CustomSelect';
-import TIMEZONES from './timezones';
 
 const CameraEditModal = ({ open, setOpen, id }) => {
-  const [timezones, setTimezones] = useState([]);
-
-  const { data: allUsers } = useGetUsersQuery();
+  const { data: allUsers, isError } = useGetUsersQuery();
 
   const [editUser, { isSuccess }] = useEditUserMutation();
-
-  useEffect(() => {
-    const timezones = TIMEZONES.sort((a, b) => {
-      if (a.offset > b.offset) return 1;
-      if (a.offset < b.offset) return -1;
-      return 0;
-    }).reduce((acc, cur) => {
-      acc.push({ label: cur.text, value: cur.offset });
-      return acc;
-    }, []);
-    setTimezones(timezones);
-  }, []);
 
   const {
     register,
@@ -52,6 +37,7 @@ const CameraEditModal = ({ open, setOpen, id }) => {
   } = useForm({
     defaultValues: {
       is_admin: false,
+      timezone: '',
     },
   });
 
@@ -61,14 +47,16 @@ const CameraEditModal = ({ open, setOpen, id }) => {
 
   useEffect(() => {
     const data = allUsers?.find((i) => i.id === id);
-    setValue('cname', data?.cname);
-    setValue('username', data?.username);
-    setValue('password', data?.password);
-    setValue('timezone', data?.timezone);
-    setValue('contactno', data?.contactno);
-    setValue('email', data?.email);
-    setValue('location', data?.location);
-    setValue('is_admin', data?.is_admin);
+    if (Object.keys(data).length > 0) {
+      setValue('cname', data?.cname);
+      setValue('username', data?.username);
+      setValue('password', data?.password);
+      setValue('timezone', data?.timezone);
+      setValue('contactno', data?.contactno);
+      setValue('email', data?.email);
+      setValue('location', data?.location);
+      setValue('is_admin', data?.is_admin);
+    }
   }, [allUsers, setValue, id]);
 
   useEffect(() => {
@@ -77,6 +65,8 @@ const CameraEditModal = ({ open, setOpen, id }) => {
       setOpen(false);
     }
   }, [isSuccess, reset, setOpen]);
+
+  if (isError) return null;
 
   return (
     <div>
@@ -158,7 +148,6 @@ const CameraEditModal = ({ open, setOpen, id }) => {
 
                     <CustomSelect
                       {...register('timezone')}
-                      values={timezones}
                       onChange={(e) => {
                         setValue('timezone', e.target.value);
                       }}

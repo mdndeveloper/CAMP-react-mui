@@ -5,21 +5,21 @@ import {
   OutlinedInput,
   Select,
 } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import React from 'react';
+import React, { useMemo } from 'react';
+import TIMEZONES from './timezones';
 
-function getStyles(name, selected, theme) {
-  return {
-    fontWeight:
-      selected !== name
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
-
-const CustomSelect = ({ value, onChange, values }) => {
-  const theme = useTheme();
-
+const CustomSelect = ({ value, onChange }) => {
+  const timezones = useMemo(() => {
+    const data = TIMEZONES.sort((a, b) => {
+      if (a.offset > b.offset) return 1;
+      if (a.offset < b.offset) return -1;
+      return 0;
+    }).reduce((acc, cur) => {
+      acc.push({ label: cur.text, value: cur.text });
+      return acc;
+    }, []);
+    return data;
+  }, []);
   return (
     <Box component='div'>
       <FormControl
@@ -38,16 +38,12 @@ const CustomSelect = ({ value, onChange, values }) => {
           fullWidth
           className='select-control1'
           onChange={onChange}
-          value={value || values[0]?.value || ''}
+          value={value}
           sx={{ width: '100%' }}
         >
-          {values.map(({ label, value: itemValue }) => (
-            <MenuItem
-              key={Math.random()}
-              value={itemValue}
-              style={getStyles(value, itemValue, theme)}
-            >
-              {label}
+          {timezones.map((item) => (
+            <MenuItem key={Math.random()} value={item.value}>
+              {item.label}
             </MenuItem>
           ))}
         </Select>
