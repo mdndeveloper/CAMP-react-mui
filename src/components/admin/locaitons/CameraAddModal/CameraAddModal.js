@@ -12,29 +12,14 @@ import {
   Typography,
 } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAddUserMutation } from '../../../../features/admin/userApiSlice';
 import styles from './configureFormstyles';
 import CustomSelect from './CustomSelect';
-import TIMEZONES from './timezones';
 
 const CameraAddModal = ({ open, setOpen }) => {
-  const [timezones, setTimezones] = useState([]);
-
   const [addUser, { isSuccess }] = useAddUserMutation();
-
-  useEffect(() => {
-    const data = TIMEZONES.sort((a, b) => {
-      if (a.offset > b.offset) return 1;
-      if (a.offset < b.offset) return -1;
-      return 0;
-    }).reduce((acc, cur) => {
-      acc.push({ label: cur.text, value: cur.offset });
-      return acc;
-    }, []);
-    setTimezones(data);
-  }, []);
 
   const {
     register,
@@ -136,7 +121,6 @@ const CameraAddModal = ({ open, setOpen }) => {
 
                     <CustomSelect
                       {...register('timezone')}
-                      values={timezones}
                       onChange={(e) => {
                         setValue('timezone', e.target.value);
                       }}
