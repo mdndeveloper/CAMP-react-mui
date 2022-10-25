@@ -6,8 +6,13 @@ import { DataGrid } from '@mui/x-data-grid';
 import React, { useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useDeleteUserMutation } from '../../../features/admin/userApiSlice';
+import {
+  useDeleteUserMutation,
+  userApiSlice,
+} from '../../../features/admin/userApiSlice';
 import { setProxyUser } from '../../../features/login/authSlice';
+import { configApiSlice } from '../../../features/userConfig/userConfigApiSlice';
+import { userElementApiSlice } from '../../../features/userElement/userElementApiSlice';
 import { storeProxyUser } from '../../../utils/proxyUser';
 import CameraEditModal from './CameraEditModal/CameraEditModal';
 
@@ -92,10 +97,10 @@ const CamsTable = ({ data }) => {
               }}
               color='error'
               onClick={() => {
-                const data = { ...props.row };
-                delete data.password;
-                delete data.username;
-                storeProxyUser(data);
+                dispatch(configApiSlice.util.resetApiState());
+                dispatch(userApiSlice.util.resetApiState());
+                dispatch(userElementApiSlice.util.resetApiState());
+                storeProxyUser(props.row);
                 dispatch(setProxyUser(props.row));
                 navigate('/messages');
               }}

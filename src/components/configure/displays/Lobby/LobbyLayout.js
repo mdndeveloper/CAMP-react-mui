@@ -1,7 +1,6 @@
 import { Stack } from '@mui/system';
 import React from 'react';
 import { useGetConfigsQuery } from '../../../../features/userConfig/userConfigApiSlice';
-import { getAuthUserId } from '../../../../utils/auth';
 import Card from '../../Card';
 import Item from './Item';
 
@@ -39,7 +38,13 @@ const LAYOUT_ITEMS = [
 ];
 
 const LobbyLayout = () => {
-  const { data, isLoading, isError, error } = useGetConfigsQuery();
+  const {
+    data: config,
+    isLoading,
+    isError,
+    error,
+    isSuccess,
+  } = useGetConfigsQuery();
 
   if (isLoading || isError) return;
 
@@ -47,7 +52,7 @@ const LobbyLayout = () => {
     console.log(error);
   }
 
-  const config = data.find((i) => i.userId === getAuthUserId());
+  if (!isSuccess) return null;
 
   return (
     <div>
@@ -57,8 +62,8 @@ const LobbyLayout = () => {
             <Item
               key={i.id}
               {...i}
-              name={config?.cameraDisplay || ''}
-              configId={config?.id}
+              name={config[0]?.cameraDisplay || ''}
+              configId={config[0]?.id}
             />
           ))}
         </Stack>

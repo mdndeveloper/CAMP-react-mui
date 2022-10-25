@@ -56,8 +56,6 @@ const RightSide = () => {
     return username;
   }, [user, isAuthenticated, proxy]);
 
-  if (!isAuthenticated) return null;
-
   return (
     <Box sx={{ display: 'flex', justifyContent: 'end', mr: '20px' }}>
       <div>

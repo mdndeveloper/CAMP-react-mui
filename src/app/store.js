@@ -15,7 +15,6 @@ export const store = configureStore({
     slide: slidePhotoSlice,
     [configApiSlice.reducerPath]: configApiSlice.reducer,
     [userApiSlice.reducerPath]: userApiSlice.reducer,
-    [userApiSlice.reducerPath]: userApiSlice.reducer,
     [userElementApiSlice.reducerPath]: userElementApiSlice.reducer,
   },
   middleware: (defaults) =>
