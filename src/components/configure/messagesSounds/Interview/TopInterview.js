@@ -26,7 +26,7 @@ const TopInterview = () => {
   });
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && data.length > 0) {
       setValue('interviewMessage', data[0].interviewMessage);
       setValue('interviewSound', data[0].interviewSound);
       setValue('interviewDuration', data[0].interviewDuration);

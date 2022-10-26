@@ -27,7 +27,7 @@ const CheckOut = () => {
   });
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && data.length > 0) {
       setValue('checkOutMessage', data[0].checkOutMessage);
       setValue('checkOutSound', data[0].checkOutSound);
       setValue('checkOutDuration', data[0].checkOutDuration);
