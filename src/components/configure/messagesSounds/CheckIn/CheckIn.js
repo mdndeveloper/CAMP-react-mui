@@ -27,7 +27,7 @@ const CheckIn = () => {
   });
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && data.length > 0) {
       setValue('checkInMessage', data[0].checkInMessage);
       setValue('checkInSound', data[0].checkInSound);
       setValue('checkInDuration', data[0].checkInDuration);
