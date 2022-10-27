@@ -44,10 +44,6 @@ const CreateForm = () => {
   useEffect(() => {
     if (editMode && type === 'admin') {
       const { dateTime, message, duration, days } = editing;
-      console.log(
-        '🚀 ~ file: CreateForm.js ~ line 47 ~ useEffect ~ days ',
-        days.toString().split('')
-      );
 
       setValue('dateTime', dateTime);
       setValue('message', message);
