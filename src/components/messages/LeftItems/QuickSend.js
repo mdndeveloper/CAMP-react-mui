@@ -19,11 +19,13 @@ export default function QuickSend({ value, setValue }) {
           onChange={(e) => setValue(e.target.value)}
         >
           {isSuccess &&
-            data.map((item) => (
-              <MenuItem key={item.id} value={item.displayName}>
-                {item.displayName}
-              </MenuItem>
-            ))}
+            data
+              .filter((d) => d.type === 'quick-send')
+              .map((item) => (
+                <MenuItem key={item.id} value={item.displayName}>
+                  {item.displayName}
+                </MenuItem>
+              ))}
         </Select>
       </FormControl>
     </div>
