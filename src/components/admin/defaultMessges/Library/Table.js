@@ -37,7 +37,6 @@ const columns = [
         .split('')
         .map((i) => DAYS[i])
         .join(', ');
-      console.log(text);
 
       return text;
     },

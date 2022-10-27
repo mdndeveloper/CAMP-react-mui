@@ -20,13 +20,13 @@ const MenuProps = {
 };
 
 const names = [
-  { label: 'Monday', value: 1 },
-  { label: 'Tuesday', value: 2 },
-  { label: 'Wednesday', value: 3 },
-  { label: 'Thursday', value: 4 },
-  { label: 'Friday', value: 5 },
-  { label: 'Saturday', value: 6 },
-  { label: 'Sunday', value: 0 },
+  { label: 'Monday', value: '1' },
+  { label: 'Tuesday', value: '2' },
+  { label: 'Wednesday', value: '3' },
+  { label: 'Thursday', value: '4' },
+  { label: 'Friday', value: '5' },
+  { label: 'Saturday', value: '6' },
+  { label: 'Sunday', value: '0' },
 ];
 
 function getStyles(name, days, theme) {
@@ -61,7 +61,7 @@ export default function DaysSelect({ days = 'Sunday', setDays }) {
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
               {selected.map((value) => {
                 const find = names.find((i) => i.value === value);
-                return <Chip key={find.value} label={find.label} />;
+                return <Chip key={find?.value} label={find?.label} />;
               })}
             </Box>
           )}
@@ -73,7 +73,7 @@ export default function DaysSelect({ days = 'Sunday', setDays }) {
               value={name.value}
               style={getStyles(name.label, days, theme)}
             >
-              {name.label}
+              {name?.label}
             </MenuItem>
           ))}
         </Select>
