@@ -18,12 +18,14 @@ const LeftItems = () => {
           text={'Check IN'}
           buttons={{ variant: 'contained', sx: { background: '#82da73' } }}
           appendText={data[0].checkInMessage}
+          duration={data[0].checkInDuration}
         />
         <Item
           type='checkout'
           text={'Check Out'}
           buttons={{ variant: 'contained', sx: { background: '#f46969' } }}
           appendText={data[0].checkOutMessage}
+          duration={data[0].checkOutDuration}
         />
 
         <QuickSendArea />

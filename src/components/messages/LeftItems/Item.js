@@ -5,12 +5,8 @@ import moment from 'moment';
 import React, { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessageAsync } from '../../../features/message/thunks';
-import { useGetConfigQuery } from '../../../features/userConfig/userConfigApiSlice';
-import { getAuthUserId } from '../../../utils/auth';
 
-const Item = ({ type, text, buttons, appendText }) => {
-  const { data: config, isSuccess } = useGetConfigQuery(getAuthUserId());
-
+const Item = ({ type, text, buttons, appendText, duration }) => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const { isLoading } = useSelector((state) => state.messages);
@@ -31,7 +27,7 @@ const Item = ({ type, text, buttons, appendText }) => {
       message: message + ' ' + appendText,
       dateTime: moment(),
       days: 0,
-      duration: config[0].defaultDuration,
+      duration,
       lastSent: null,
       type: '',
       category: type,
@@ -44,7 +40,6 @@ const Item = ({ type, text, buttons, appendText }) => {
     }, 2000);
   };
 
-  if (!isSuccess || data.length <= 0) return null;
   return (
     <>
       <Stack direction='row' gap={2} alignItems={'center'} flexWrap='wrap'>
