@@ -9,7 +9,7 @@ import RightSide from './RightSide';
 const AllCameraListContainer = () => {
   const { height } = useInnerSize();
 
-  const { data: config, isSuccess } = useGetConfigsQuery();
+  const { isSuccess } = useGetConfigsQuery();
 
   if (!isSuccess) return null;
 

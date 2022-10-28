@@ -4,13 +4,12 @@ import { Stack } from '@mui/system';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import {
-  useGetConfigQuery,
+  useGetConfigsQuery,
   useUpdateConfigMutation,
 } from '../../../../features/userConfig/userConfigApiSlice';
-import { getAuthUserId } from '../../../../utils/auth';
 import SelectSound from '../SelectSound';
 const TopInterview = () => {
-  const { data, isSuccess } = useGetConfigQuery(getAuthUserId());
+  const { data, isSuccess } = useGetConfigsQuery();
   const [updateConfig, { isLoading }] = useUpdateConfigMutation();
 
   const {

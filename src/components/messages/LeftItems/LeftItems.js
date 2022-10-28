@@ -1,15 +1,13 @@
 import { Box } from '@mui/material';
 import { Stack } from '@mui/system';
 import React from 'react';
-import { useGetConfigQuery } from '../../../features/userConfig/userConfigApiSlice';
-import { getAuthUserId } from '../../../utils/auth';
+import { useGetConfigsQuery } from '../../../features/userConfig/userConfigApiSlice';
 import Item from './Item';
 import QuickSendArea from './QuickSendArea';
 
 const LeftItems = () => {
-  const { data, isSuccess } = useGetConfigQuery(getAuthUserId());
+  const { data } = useGetConfigsQuery();
 
-  if (!isSuccess || data.length <= 0) return null;
   return (
     <Box sx={{ boxSizing: 'border-box', px: '10px' }}>
       <Stack gap={4}>

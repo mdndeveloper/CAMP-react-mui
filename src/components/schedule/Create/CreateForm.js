@@ -4,6 +4,7 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import moment from 'moment';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -143,6 +144,10 @@ const CreateForm = () => {
                   minDate={today}
                   value={watch('dateTime')}
                   onChange={(newValue) => {
+                    console.log(
+                      moment(moment(newValue).utc().format()).utc().format()
+                    );
+
                     setValue('dateTime', newValue);
                     if (errors?.dateTime) {
                       clearErrors('dateTime');
