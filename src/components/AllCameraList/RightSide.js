@@ -2,9 +2,8 @@ import { Box, Grid } from '@mui/material';
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchStreamAsync } from '../../features/stream/thunks';
-import { useGetConfigQuery } from '../../features/userConfig/userConfigApiSlice';
+import { useGetConfigsQuery } from '../../features/userConfig/userConfigApiSlice';
 import useInnerSize from '../../hooks/useInnerSize';
-import { getAuthUserId } from '../../utils/auth';
 import SingleCamera from './SingleCamera';
 
 const LAYOUT_ITEMS = [
@@ -52,11 +51,14 @@ const RightSide = () => {
 
   const dispatch = useDispatch();
 
-  const {
-    data: config,
-    isSuccess,
-    isLoading,
-  } = useGetConfigQuery(getAuthUserId());
+  const { data: config, isSuccess, isLoading } = useGetConfigsQuery();
+
+  const calculateHeight = useMemo(() => {
+    if (!isSuccess) return height;
+    const slideShowPosition = config[0]?.slideShowPosition;
+    if (slideShowPosition === 'NONE') return height;
+    return height - (height / 100) * 30;
+  }, [height, isSuccess, config]);
 
   useEffect(() => {
     if (!isLoading) {
@@ -78,11 +80,14 @@ const RightSide = () => {
   }, [config, isSuccess]);
 
   return (
-    <Box sx={{ height: '100vh', overflow: 'hidden' }}>
+    <Box sx={{ height: calculateHeight, overflow: 'hidden' }}>
       <Grid container>
         {cameras.slice(0, col * row).map((item) => (
           <Grid xs={12 / col} key={item.id}>
-            <SingleCamera height={height / row} ipAddress={item.ipAddress} />
+            <SingleCamera
+              height={calculateHeight / row}
+              ipAddress={item.ipAddress}
+            />
           </Grid>
         ))}
       </Grid>

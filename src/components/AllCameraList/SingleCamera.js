@@ -16,7 +16,7 @@ const SingleCamera = ({ height, ipAddress }) => {
         <Box
           sx={{
             border: '1px solid #000',
-            height,
+            height: height - 2,
           }}
         >
           <iframe
