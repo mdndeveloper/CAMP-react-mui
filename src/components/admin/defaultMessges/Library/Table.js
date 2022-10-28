@@ -17,7 +17,30 @@ const columns = [
       return <p>{moment(value).format(' h:mm:ss a ,MMM D, YYYY ')}</p>;
     },
   },
-  { headerName: 'Days', field: 'days', width: 100 },
+  {
+    headerName: 'Days',
+    field: 'days',
+    width: 250,
+    renderCell: ({ value }) => {
+      const DAYS = {
+        1: 'Mon',
+        2: 'Tue',
+        3: 'Wed',
+        4: 'Thu',
+        5: 'Fri',
+        6: 'Sat',
+        0: 'Sun',
+      };
+
+      const text = value
+        .toString()
+        .split('')
+        .map((i) => DAYS[i])
+        .join(', ');
+
+      return text;
+    },
+  },
   { headerName: 'Duration', field: 'duration', width: 100 },
   {
     headerName: 'Action',

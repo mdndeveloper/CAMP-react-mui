@@ -4,6 +4,7 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import moment from 'moment';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -41,10 +42,11 @@ const CreateForm = () => {
 
   useEffect(() => {
     if (editMode && type === 'schedule') {
-      const { dateTime, message, duration } = editing;
+      const { dateTime, message, duration, days } = editing;
       setValue('dateTime', dateTime);
       setValue('message', message);
       setValue('duration', duration);
+      setValue('days', days.toString().split(''));
     }
   }, [editMode, editing, setValue, type]);
 
@@ -54,11 +56,16 @@ const CreateForm = () => {
     };
   }, [dispatch]);
 
+  const generateDaysInt = (days) => {
+    const suffix = days.includes('0') ? '0' : '';
+
+    return parseInt(days.sort((a, b) => a - b).join('') + suffix);
+  };
   const submitHandler = (values) => {
     const data = {
       ...values,
       userId: getAuthUserId(),
-      days: values.days.length,
+      days: generateDaysInt(values.days),
     };
 
     const handler = editMode
@@ -137,6 +144,10 @@ const CreateForm = () => {
                   minDate={today}
                   value={watch('dateTime')}
                   onChange={(newValue) => {
+                    console.log(
+                      moment(moment(newValue).utc().format()).utc().format()
+                    );
+
                     setValue('dateTime', newValue);
                     if (errors?.dateTime) {
                       clearErrors('dateTime');

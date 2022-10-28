@@ -8,13 +8,13 @@ import {
   addMessageAsync,
   fetchMessagesAsync,
 } from '../../../features/message/thunks';
-import { useGetConfigQuery } from '../../../features/userConfig/userConfigApiSlice';
+import { useGetConfigsQuery } from '../../../features/userConfig/userConfigApiSlice';
 import { getAuthUserId } from '../../../utils/auth';
 import QuickSend from './QuickSend';
 const QuickSendArea = () => {
   const [isLoading3, setLoading] = useState(false);
   const { isLoading, data: messages } = useSelector((state) => state.messages);
-  const { data: config } = useGetConfigQuery(getAuthUserId());
+  const { data: config } = useGetConfigsQuery();
   const [value, setValue] = useState('');
   const dispatch = useDispatch();
 

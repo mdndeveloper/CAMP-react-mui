@@ -20,7 +20,6 @@ if (token) {
 }
 const proxyUser = getProxyUser();
 if (proxyUser && Object.keys(proxyUser).length > 0) {
-  console.log(proxyUser);
   store.dispatch(setProxyUser(proxyUser));
 }
 

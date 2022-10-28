@@ -19,7 +19,7 @@ const LayoutOne = () => {
 
   const isActive = useMemo(() => {
     if (!isSuccess) return false;
-    return config[0].slideShowPosition === 'TOP';
+    return config[0].slideShowPosition === 'NONE';
   }, [isSuccess, config]);
 
   if (isLoading || isError) return;
@@ -31,7 +31,7 @@ const LayoutOne = () => {
   if (!isSuccess) return null;
 
   const updateHandler = () => {
-    updateConfig({ id: config[0].id, data: { slideShowPosition: 'TOP' } });
+    updateConfig({ id: config[0].id, data: { slideShowPosition: 'NONE' } });
   };
 
   return (
@@ -49,7 +49,7 @@ const LayoutOne = () => {
     >
       <Box
         sx={{
-          height: `30%`,
+          height: `100%`,
           width: `100%`,
           color: isActive ? '#fff' : '#000',
           background: isActive ? '#81b1d9' : 'transparent',
@@ -60,22 +60,7 @@ const LayoutOne = () => {
           alignItems: 'center',
         }}
       >
-        Slide Show
-      </Box>
-      <Box
-        sx={{
-          height: `70%`,
-          width: `100%`,
-          color: isActive ? '#fff' : '#000',
-          background: isActive ? '#81b1d9' : 'transparent',
-          border: isActive ? 'none' : '1px solid #81b1d9',
-          borderRadius: '4px',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        Camera
+        Cameras
       </Box>
     </Stack>
   );

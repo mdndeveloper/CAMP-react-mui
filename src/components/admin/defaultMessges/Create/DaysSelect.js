@@ -20,13 +20,13 @@ const MenuProps = {
 };
 
 const names = [
-  'Saturday',
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
+  { label: 'Monday', value: '1' },
+  { label: 'Tuesday', value: '2' },
+  { label: 'Wednesday', value: '3' },
+  { label: 'Thursday', value: '4' },
+  { label: 'Friday', value: '5' },
+  { label: 'Saturday', value: '6' },
+  { label: 'Sunday', value: '0' },
 ];
 
 function getStyles(name, days, theme) {
@@ -59,20 +59,21 @@ export default function DaysSelect({ days = 'Sunday', setDays }) {
           input={<OutlinedInput id='selectInput' label='Days' />}
           renderValue={(selected) => (
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} />
-              ))}
+              {selected.map((value) => {
+                const find = names.find((i) => i.value === value);
+                return <Chip key={find?.value} label={find?.label} />;
+              })}
             </Box>
           )}
           MenuProps={MenuProps}
         >
           {names.map((name) => (
             <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, days, theme)}
+              key={name.value}
+              value={name.value}
+              style={getStyles(name.label, days, theme)}
             >
-              {name}
+              {name?.label}
             </MenuItem>
           ))}
         </Select>

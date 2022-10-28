@@ -43,10 +43,12 @@ const CreateForm = () => {
 
   useEffect(() => {
     if (editMode && type === 'admin') {
-      const { dateTime, message, duration } = editing;
+      const { dateTime, message, duration, days } = editing;
+
       setValue('dateTime', dateTime);
       setValue('message', message);
       setValue('duration', duration);
+      setValue('days', days.toString().split(''));
     }
   }, [editMode, editing, setValue, type]);
 
@@ -56,11 +58,17 @@ const CreateForm = () => {
     };
   }, [dispatch]);
 
+  const generateDaysInt = (days) => {
+    const suffix = days.includes('0') ? '0' : '';
+
+    return parseInt(days.sort((a, b) => a - b).join('') + suffix);
+  };
+
   const submitHandler = (values) => {
     const data = {
       ...values,
       userId: getAuthUserId(),
-      days: values.days.length,
+      days: generateDaysInt(values.days),
     };
 
     const handler = editMode
