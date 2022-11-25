@@ -12,7 +12,6 @@ const Library = () => {
   const { data: messages } = useSelector((state) => state.messages);
 
   const data = useMemo(() => {
-    console.log(to);
     return messages.filter((m) => {
       return moment(m.createdAt).isBetween(from, moment(to).add(1, 'day'));
     });
