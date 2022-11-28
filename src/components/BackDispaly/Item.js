@@ -26,12 +26,12 @@ const Item = ({ date, text, height = 100 }) => {
 
   const fontSize = useMemo(() => {
     if (!text) return 0;
-    if (text.length > 99) return 25 + 30;
-    if (text.length > 79) return 35 + 30;
-    if (text.length > 49) return 45 + 30;
-    if (text.length > 36) return 45 + 30;
-    if (text.length > 19) return 50 + 30;
-    return 60 + 30;
+    if (text.length > 99) return 25;
+    if (text.length > 79) return 35;
+    if (text.length > 49) return 45;
+    if (text.length > 36) return 45;
+    if (text.length > 19) return 50;
+    return 60;
   }, [text]);
 
   return (
