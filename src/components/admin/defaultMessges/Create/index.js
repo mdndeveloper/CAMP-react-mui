@@ -55,7 +55,7 @@ const Create = () => {
         </Button>
       </Stack>
       <Divider />
-      <Box sx={{ minHeight: '300px', boxSizing: 'border-box', p: '10px' }}>
+      <Box sx={{ boxSizing: 'border-box', px: '10px', py: '15px' }}>
         <CreateForm />
       </Box>
       <SuggestedModal open={isOpen} setIsOpen={setIsOpen} />

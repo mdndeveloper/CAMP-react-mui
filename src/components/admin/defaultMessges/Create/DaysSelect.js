@@ -48,7 +48,7 @@ export default function DaysSelect({ days = 'Sunday', setDays }) {
 
   return (
     <div>
-      <FormControl sx={{ width: '100%' }}>
+      <FormControl sx={{ width: '100%', mt: { sm: 2, md: 0 } }}>
         <InputLabel id='daysSelectId'>Days</InputLabel>
         <Select
           labelId='daysSelectId'
